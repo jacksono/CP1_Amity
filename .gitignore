@@ -1,1 +1,5 @@
+#ignore pyc file
 amity.pyc
+
+#ignore pycache folder
+__pycache__
