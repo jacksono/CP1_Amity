@@ -31,6 +31,14 @@ class TestAmityFunctions(unittest.TestCase):
         self.amity.create_room('Go', 'living_space')
         self.assertEqual(self.amity.all_rooms['Go'], 'living_space')
 
+    def test_can_create_multiple_rooms(self):
+        '''Tests if the command create_room can be used to create multiple rooms
+        '''
+        initial_room_no = len(self.all_rooms)
+        self.amity.create_room('Narnia', 'Krpton', 'Valhala' 'office')
+        final_room_no = len(self.all_rooms)
+        self.assertEqual(3, final_room_no - initial_room_no)
+
 
 if __name__ == '__main__':
     unittest.main()
