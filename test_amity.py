@@ -19,6 +19,12 @@ class TestAmityFunctions(unittest.TestCase):
         self.assertTrue(tsavo_office)
         self.assertEqual(1, final_room_no - initial_room_no)
 
+    def test_correct_office_room_created(self):
+        '''Tests if correct office name and type are created
+        '''
+        tsavo_office = self.amity.create_room('Tsavo', 'office')
+        self.assertEqual(tsavo_office['Tsavo'], 'office')
+
 
 if __name__ == '__main__':
     unittest.main()
