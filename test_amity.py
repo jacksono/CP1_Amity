@@ -17,7 +17,7 @@ class TestAmityFunctions(unittest.TestCase):
         tsavo_office = self.amity.create_room("Tsavo", "office")
         final_room_no = len(self.amity.all_rooms)
         self.assertTrue(tsavo_office)
-        self.assertEqual(1, initial_room_no - final_room_no)
+        self.assertEqual(1, final_room_no - initial_room_no)
 
 
 if __name__ == '__main__':
