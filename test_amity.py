@@ -25,6 +25,12 @@ class TestAmityFunctions(unittest.TestCase):
         self.amity.create_room('Tsavo', 'office')
         self.assertEqual(self.amity.all_rooms['Tsavo'], 'office')
 
+    def test_correct_living_space_created(self):
+        '''Tests if correct living space name and type are created
+        '''
+        self.amity.create_room('Go', 'living_space')
+        self.assertEqual(self.amity.all_rooms['Go'], 'living_space')
+
 
 if __name__ == '__main__':
     unittest.main()
