@@ -1,5 +1,5 @@
 class Amity:
-    '''Definitionof Amity class
+    '''Definition of Amity class
     '''
     def __init__(self):
         '''Initialiser for the Amity class
@@ -11,4 +11,5 @@ class Amity:
         '''
         for name in room_name:
             self.all_rooms[name] = room_type
-        return "{} has been successfully created".format(room_name)
+            print("{} has been created".format(name))
+        return "Command completed succesfully"
