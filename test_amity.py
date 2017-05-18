@@ -31,10 +31,9 @@ class TestAmityFunctions(unittest.TestCase):
     def test_person_created_successfully(self):
         """Tests if one person is created succesfully."""
         initial_person_no = len(self.amity.amity_all_people)
-        self.amity.create_person("Daniel", "Staff")
+        self.amity.add_person("Daniel", "Staff")
         final_person_no = len(self.amity.amity_all_people)
         self.assertEqual(1, final_person_no - initial_person_no)
-
 
 
 if __name__ == '__main__':
