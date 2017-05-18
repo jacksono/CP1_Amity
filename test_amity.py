@@ -23,13 +23,13 @@ class TestAmityFunctions(unittest.TestCase):
     def test_correct_office_room_created(self):
         """Tests if correct office name and type are created."""
         self.amity.create_room('Tsavo', 'o')
-        self.assertEqual(self.amity.amity_offices['Tsavo'], 'Office',
+        self.assertEqual(self.amity.amity_offices['Tsavo'][0], 'Office',
                          msg="Correct office name and type should be returned")
 
     def test_correct_living_space_created(self):
         """Tests if correct living space name and type are created."""
         self.amity.create_room('Go', 'l')
-        self.assertEqual(self.amity.amity_living_spaces['Go'], 'Living Space',
+        self.assertEqual(self.amity.amity_living_spaces['Go'][0], 'Living Space',
                          msg="Correct living space name and type should be"
                          " returned")
 
