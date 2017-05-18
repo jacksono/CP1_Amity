@@ -104,6 +104,24 @@ class TestAmityFunctions(unittest.TestCase):
                          msg="Fellow added should not be allocated"
                          " LivingSpaceif he cooses not to have accomodation")
 
+    def test_fellow_added_and_allocated_office_room_and_living_space(self):
+        """Tests if a fellow is allocated an office and living space.
+
+        The fellow is allocated an office and living spcae if he chooses
+        to have accomodation.
+        """
+        self.amity.create_room("Office", "o")
+        self.amity.create_room("LivingSpace", "l")
+        self.amity.add_person("Joe", "Fellow")
+        self.assertIn(["Joe"], list(self.amity.amity_offices.values()),
+                      msg="Fellow should be allocated both an office and"
+                      " living spcae if he chooses to have accomodation")
+        self.assertIn(["Joe"],
+                      list(self.amity.amity_living_spaces.values()),
+                      msg="Fellow should be allocated both an office and"
+                      " and living spcae if he chooses to have "
+                      " accomodation")
+
 
 if __name__ == '__main__':
     unittest.main()
