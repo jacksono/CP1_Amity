@@ -29,3 +29,14 @@ class Amity:
             self.living_space.create_room(room_name)
             self.amity_living_spaces.update(self.living_space.all_rooms)
             self.amity_all_rooms.update(self.living_space.all_rooms)
+
+    def add_person(self, person_name, person_type, wants_acc=False):
+        """Create people given name, type and accomodation option."""
+        if person_type == 'Staff':
+            self.staff.add_person(person_name)
+            self.amity_staff.update(self.staff.all_people)
+            self.amity_all_people.update(self.staff.all_people)
+        elif person_type == 'Fellow':
+            self.fellow.add_person(person_name, wants_acc)
+            self.amity_fellows.update(self.fellow.all_people)
+            self.amity_all_people.update(self.fellow.all_peolple)
