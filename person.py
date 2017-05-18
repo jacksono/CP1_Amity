@@ -9,5 +9,13 @@ class Person:
         self.all_people = {}
 
     def add_person(self, person_name, person_type, wants_acc=False):
-        """Create a person with correct details."""
+        """Create a new person with correct details."""
         self.all_people[person_name] = person_type
+
+
+class Staff:
+    """Class to create staff members."""
+
+    def add_person(self, person_name):
+        """Create a new staff member with correct details."""
+        super(Staff, self).add_person(person_name, "Staff")
