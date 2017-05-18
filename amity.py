@@ -39,4 +39,4 @@ class Amity:
         elif person_type == 'Fellow':
             self.fellow.add_person(person_name, wants_acc)
             self.amity_fellows.update(self.fellow.all_people)
-            self.amity_all_people.update(self.fellow.all_peolple)
+            self.amity_all_people.update(self.fellow.all_people)
