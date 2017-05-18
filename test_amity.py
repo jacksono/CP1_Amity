@@ -13,28 +13,20 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_office_created_succesfully(self):
         """Tests if one office room is created succesfully."""
-        initial_room_no = len(self.amity.all_rooms)
-        tsavo_office = self.amity.create_room(["Tsavo"], "office")
-        final_room_no = len(self.amity.all_rooms)
-        self.assertTrue(tsavo_office)
+        initial_room_no = len(self.amity.amity_all_rooms)
+        self.amity.create_room("Tsavo", "o")
+        final_room_no = len(self.amity.amity_all_rooms)
         self.assertEqual(1, final_room_no - initial_room_no)
 
     def test_correct_office_room_created(self):
         """Tests if correct office name and type are created."""
-        self.amity.create_room(['Tsavo'], 'office')
-        self.assertEqual(self.amity.all_rooms['Tsavo'], 'office')
+        self.amity.create_room('Tsavo', 'o')
+        self.assertEqual(self.amity.amity_offices['Tsavo'], 'Office')
 
     def test_correct_living_space_created(self):
         """Tests if correct living space name and type are created."""
-        self.amity.create_room(['Go'], 'living_space')
-        self.assertEqual(self.amity.all_rooms['Go'], 'living_space')
-
-    def test_can_create_multiple_rooms(self):
-        """Tests if multiple rooms can be created."""
-        initial_room_no = len(self.amity.all_rooms)
-        self.amity.create_room(['Narnia', 'Krpton', 'Valhala'], 'office')
-        final_room_no = len(self.amity.all_rooms)
-        self.assertEqual(3, final_room_no - initial_room_no)
+        self.amity.create_room('Go', 'l')
+        self.assertEqual(self.amity.amity_living_spaces['Go'], 'Living Space')
 
 
 if __name__ == '__main__':
