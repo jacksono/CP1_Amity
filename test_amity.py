@@ -38,14 +38,14 @@ class TestAmityFunctions(unittest.TestCase):
     def test_correct_staff_member_added(self):
         """Tests if a staff member can be created with right details."""
         self.amity.add_person("Roger", "Staff")
-        self.assertEqual(self.amity.amity_staff["Roger"], "Staff")
+        self.assertEqual(self.amity.amity_staff["Roger"][0], "Staff")
 
     def test_correct_fellow_added(self):
         """Tests if a fellow can be created with right details."""
         self.amity.add_person("Joseph", "Fellow", True)
         self.amity.add_person("Ritah", "Fellow")
-        self.assertEqual(self.amity.amity_fellows["Joseph"], "Fellow")
-        self.assertEqual(self.amity.amity_fellows["Ritah"], "Fellow")
+        self.assertEqual(self.amity.amity_fellows["Joseph"][0], "Fellow")
+        self.assertEqual(self.amity.amity_fellows["Ritah"][0], "Fellow")
 
     def test_fellow_accomodation_option_picked_correctly(self):
         """Tests if fellow's accomodatio option is correctly picked."""
