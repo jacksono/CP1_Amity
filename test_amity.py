@@ -156,6 +156,20 @@ class TestAmityFunctions(unittest.TestCase):
                          msg="Fellow should move from old room after"
                          " reallocation")
 
+    def test_fellow_reallocated_to_living_space_correctly(self):
+        """Tests if a fellow is reallocated to the correct living space."""
+        self.amity.create_room("Room1", "o")
+        self.amity.create_room("Room2", "l")
+        self.amity.add_person("Brenda", "Fellow", True)
+        self.amity.create_room("Room3", "l")
+        self.amity.reallocate("Brenda", "Room3")
+        self.assertIn("Brenda", self.amity.amity_living_spaces["Room3"],
+                      msg="Fellow should move to new living space after"
+                      " reallocation")
+        self.assertNotIn("Brenda", self.amity.amity_living_spaces["Room2"],
+                         msg="Fellow should move from old living space after"
+                         " reallocation")
+
 
 if __name__ == '__main__':
     unittest.main()
