@@ -19,6 +19,16 @@ class Office(Room):
     """Class to create office rooms."""
 
     def __init__(self, name):
-        """Set Initialiser of the Room class."""
+        """Set Initialiser of the Office class."""
         self.room_capacity = 6
         super(Office, self).__init__(name, 'Office', self.room_capacity)
+
+
+class LivingSpace(Room):
+    """Class to create living space rooms."""
+
+    def __init__(self, name):
+        """Set Initialiser of the LivingSpcae class."""
+        self.room_capacity = 4
+        super(LivingSpace, self).__init__(name, 'Living Space',
+                                          self.room_capacity)
