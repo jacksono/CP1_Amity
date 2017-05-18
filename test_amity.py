@@ -138,9 +138,21 @@ class TestAmityFunctions(unittest.TestCase):
         self.amity.add_person("Carlos", "Staff")
         self.amity.create_room("Room2", "o")
         self.amity.reallocate("Carlos", "Room2")
-        self.assertIn(["Carlos"], self.amity.amity_offices["Room2"],
+        self.assertIn("Carlos", self.amity.amity_offices["Room2"],
                       msg="Staff should move to new room after reallocation")
-        self.assertNotIn(["Carlos"], self.amity.amity_offices["Room1"],
+        self.assertNotIn("Carlos", self.amity.amity_offices["Room1"],
+                         msg="Staff should move from old room after"
+                         " reallocation")
+
+    def test_fellow_reallocated_correctly(self):
+        """Tests if a fellow is reallocated to correct office from old one."""
+        self.amity.create_room("Room1", "o")
+        self.amity.add_person("Brenda", "Fellow")
+        self.amity.create_room("Room2", "o")
+        self.amity.reallocate("Brenda", "Room2")
+        self.assertIn("Brenda", self.amity.amity_offices["Room2"],
+                      msg="Staff should move to new room after reallocation")
+        self.assertNotIn("Brenda", self.amity.amity_offices["Room1"],
                          msg="Staff should move from old room after"
                          " reallocation")
 
