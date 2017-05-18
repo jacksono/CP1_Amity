@@ -1,5 +1,6 @@
 """Module to contain the amity class and methods  for all amity operations."""
 from room import Office, LivingSpace
+from person import Fellow, Staff
 
 
 class Amity:
@@ -12,6 +13,11 @@ class Amity:
         self.office = Office()
         self.living_space = LivingSpace()
         self.amity_all_rooms = {}
+        self.amity_all_people = {}
+        self.amity_staff = {}
+        self.amity_fellows = {}
+        self.staff = Staff()
+        self.fellow = Fellow()
 
     def create_room(self, room_name, type):
         """Create rooms given room names and room type."""
