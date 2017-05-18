@@ -1,6 +1,7 @@
 """Module to contain the amity class and methods  for all amity operations."""
 from room import Office, LivingSpace
 from person import Fellow, Staff
+import random
 
 
 class Amity:
@@ -34,9 +35,12 @@ class Amity:
         """Create people given name, type and accomodation option."""
         if person_type == 'Staff':
             self.staff.add_person(person_name)
-
             self.amity_staff.update(self.staff.all_people)
             self.amity_all_people.update(self.staff.all_people)
+            if self.amity_offices:
+                allocated_room = random.choice(list(self.amity_offices.keys()))
+                self.amity_offices[allocated_room][1] = person_name
+                self.amity_all_rooms.update(self.amity_offices)
         elif person_type == 'Fellow':
             self.fellow.add_person(person_name, wants_acc)
             self.amity_fellows.update(self.fellow.all_people)
