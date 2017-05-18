@@ -41,7 +41,7 @@ class TestAmityFunctions(unittest.TestCase):
         final_person_no = len(self.amity.amity_all_people)
         self.assertEqual(1, final_person_no - initial_person_no,
                          msg="Total number of people should increase by 1 if a"
-                         " new person is creted succesfully")
+                         " new person is created successfully")
 
     def test_correct_staff_member_added(self):
         """Tests if a staff member can be created with right details."""
@@ -74,9 +74,11 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_new_staff_added_and_allocated_to_a_room(self):
         """Tests ifa new staff member is allocated a room after being added."""
+        self.amity.create_room("new", "o")
         self.amity.add_person("Steve", "Staff")
-        self.assertTrue(self.amity.amity_offices["Steve"][1], msg="New staff"
-                        " added should be allocated an office room")
+        self.assertIn(["Office", "Steve"],
+                      list(self.amity.amity_offices.values()),
+                      msg="New staff added should be allocated an office room")
 
 
 if __name__ == '__main__':
