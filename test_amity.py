@@ -36,9 +36,16 @@ class TestAmityFunctions(unittest.TestCase):
         self.assertEqual(1, final_person_no - initial_person_no)
 
     def test_correct_staff_member_added(self):
-        """Tests if a staff member can be creted with right details."""
+        """Tests if a staff member can be created with right details."""
         self.amity.add_person("Roger", "Staff")
         self.assertEqual(self.amity.amity_staff["Roger"], "Staff")
+
+    def test_correct_fellow_added(self):
+        """Tests if a fellow can be created with right details."""
+        self.amity.add_person("Joseph", "Fellow", True)
+        self.amity.add_person("Ritah", "Fellow")
+        self.assertEqual(self.amity.amity_fellows["Joseph"], "Fellow")
+        self.assertEqual(self.amity.amity_fellows["Ritah"], "Fellow")
 
 
 if __name__ == '__main__':
