@@ -23,16 +23,14 @@ class TestAmityFunctions(unittest.TestCase):
     def test_correct_office_room_created(self):
         """Tests if correct office name and type are created."""
         self.amity.create_room('Tsavo', 'o')
-        self.assertEqual(self.amity.amity_offices['Tsavo'][0], 'Office',
-                         msg="Correct office name and type should be returned")
+        self.assertIn("Tsavo", self.amity.amity_offices,
+                      msg="Correct office name and type should be returned")
 
     def test_correct_living_space_created(self):
         """Tests if correct living space name and type are created."""
         self.amity.create_room('Go', 'l')
-        self.assertEqual(self.amity.amity_living_spaces['Go'][0],
-                         'Living Space',
-                         msg="Correct living space name and type should be"
-                         " returned")
+        self.assertIn("Go", self.amity.amity_living_spaces, msg="Correct"
+                      " living space name and type should be returned")
 
     def test_person_created_successfully(self):
         """Tests if one person is created succesfully."""
@@ -76,7 +74,7 @@ class TestAmityFunctions(unittest.TestCase):
         """Tests if a staff member is allocated a room after being added."""
         self.amity.create_room("new", "o")
         self.amity.add_person("Steve", "Staff")
-        self.assertIn(["Office", "Steve"],
+        self.assertIn(["Steve"],
                       list(self.amity.amity_offices.values()),
                       msg="New staff added should be allocated an office room")
 
@@ -87,7 +85,7 @@ class TestAmityFunctions(unittest.TestCase):
             self.amity.add_person(person, "Staff")
         self.assertEqual("All available Offices are fully occupied",
                          self.amity.add_person("Kimmy", "Staff"),
-                         msg="Maximum capacity of office should not be")
+                         msg="Maximum capacity of office shouldnt be exceeded")
 
 
 if __name__ == '__main__':
