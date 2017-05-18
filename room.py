@@ -28,6 +28,10 @@ class Office(Room):
         self.room_capacity = 6
         super(Office, self).__init__(name, 'Office', self.room_capacity)
 
+    def create_room(self, room_name, room_type):
+        """Create a new Office room."""
+        super(Office, self).create_room(room_name, 'Office')
+
 
 class LivingSpace(Room):
     """Class to create living space rooms."""
@@ -37,3 +41,7 @@ class LivingSpace(Room):
         self.room_capacity = 4
         super(LivingSpace, self).__init__(name, 'Living Space',
                                           self.room_capacity)
+
+    def create_room(self, room_name, room_type):
+        """Create a new Living space room."""
+        super(LivingSpace, self).create_room(room_name, 'Living Space')
