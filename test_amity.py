@@ -47,6 +47,15 @@ class TestAmityFunctions(unittest.TestCase):
         self.assertEqual(self.amity.amity_fellows["Joseph"], "Fellow")
         self.assertEqual(self.amity.amity_fellows["Ritah"], "Fellow")
 
+    def test_fellow_accomodation_option_picked_correctly(self):
+        """Tests if fellow's accomodatio option is correctly picked."""
+        self.amity.add_person("Joseph", "Fellow", True)
+        self.amity.add_person("Ritah", "Fellow")
+        self.amity.add_person("Sharon", "Fellow", False)
+        self.assertTrue(self.amity.amity_fellows["Joseph"][1])
+        self.assertFalse(self.amity.amity_fellows["Ritah"][1])
+        self.assertFalse(self.amity.amity_fellows["Sharon"][1])
+
 
 if __name__ == '__main__':
     unittest.main()
