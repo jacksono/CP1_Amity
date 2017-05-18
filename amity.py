@@ -57,3 +57,21 @@ class Amity:
                     self.amity_all_rooms.update(self.amity_offices)
                 else:
                     return "All available Offices are fully occupied"
+            elif self.amity_offices and self.amity_living_spaces and wants_acc:
+                allocated_office =\
+                                random.choice(list(self.amity_offices.keys()))
+                allocated_living_space =\
+                    random.choice(list(self.amity_living_spaces.keys()))
+                if len(self.amity_offices[allocated_office])\
+                        < self.office.room_capacity:
+                    self.amity_offices[allocated_office].append(person_name)
+                    self.amity_all_rooms.update(self.amity_offices)
+                else:
+                    return "All available Offices are fully occupied"
+                if len(self.amity_living_spaces[allocated_living_space])\
+                        < self.living_space.room_capacity:
+                    self.amity_living_spaces[allocated_living_space].\
+                      append(person_name)
+                    self.amity_all_rooms.update(self.amity_living_spaces)
+                else:
+                    return "All available Living Spaces are fully occupied"
