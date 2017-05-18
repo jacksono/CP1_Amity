@@ -13,7 +13,7 @@ class Person:
         self.all_people[person_name] = person_type
 
 
-class Staff:
+class Staff(Person):
     """Class to create staff members."""
 
     def add_person(self, person_name):
@@ -21,7 +21,7 @@ class Staff:
         super(Staff, self).add_person(person_name, "Staff")
 
 
-class Fellow:
+class Fellow(Person):
     """Class to create Fellows."""
 
     def add_person(self, person_name, wants_acc):
