@@ -10,7 +10,7 @@ class Person:
 
     def add_person(self, person_name, person_type, wants_acc=False):
         """Create a new person with correct details."""
-        self.all_people[person_name] = person_type
+        self.all_people[person_name] = [person_type, wants_acc]
 
 
 class Staff(Person):
@@ -24,6 +24,6 @@ class Staff(Person):
 class Fellow(Person):
     """Class to create Fellows."""
 
-    def add_person(self, person_name, wants_acc):
+    def add_person(self, person_name, wants_acc=False):
         """Create a new Fellow with correct details."""
         super(Fellow, self).add_person(person_name, "Fellow", wants_acc)
