@@ -71,7 +71,7 @@ class TestAmityFunctions(unittest.TestCase):
                          " should be saved")
 
     def test_new_staff_added_and_allocated_to_a_room(self):
-        """Tests if a staff member is allocated a room after being added."""
+        """Tests if a staff member is allocated an office after being added."""
         self.amity.create_room("new", "o")
         self.amity.add_person("Steve", "Staff")
         self.assertIn(["Steve"],
@@ -86,6 +86,22 @@ class TestAmityFunctions(unittest.TestCase):
         self.assertEqual("All available Offices are fully occupied",
                          self.amity.add_person("Kimmy", "Staff"),
                          msg="Maximum capacity of office shouldnt be exceeded")
+
+    def test_fellow_added_and_allocated_office_room_only(self):
+        """Tests if a fellow is allocated a room.
+
+        The fellow is allocated an office only if he chooses not to have
+        accomodation.
+        """
+        self.amity.create_room("Office", "o")
+        self.amity.create_room("LivingSpace", "l")
+        self.amity.add_person("Joe", "Fellow")
+        self.assertIn(["Joe"], list(self.amity.amity_offices.values()),
+                      msg="Fellow added should be allocated only an office"
+                      " if he chooses not to have accomodation")
+        self.assertNotIn(["Joe"], list(self.amity.amity_living_spaces.values(),
+                         msg="Fellow added should not be allocated"
+                         " LivingSpaceif he cooses not to have accomodation"))
 
 
 if __name__ == '__main__':
