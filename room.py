@@ -17,7 +17,7 @@ class Room:
     def create_room(self, room_name, room_type):
         """Create a new room and add it to the all rooms dictionary."""
         # do i need new args for room name and room type?
-        self.all_rooms_list[room_name] = room_type
+        self.all_rooms[room_name] = room_type
 
 
 class Office(Room):
@@ -28,7 +28,7 @@ class Office(Room):
         self.room_capacity = 6
         super(Office, self).__init__(name, 'Office', self.room_capacity)
 
-    def create_room(self, room_name, room_type):
+    def create_room(self, room_name):
         """Create a new Office room."""
         super(Office, self).create_room(room_name, 'Office')
 
@@ -42,6 +42,6 @@ class LivingSpace(Room):
         super(LivingSpace, self).__init__(name, 'Living Space',
                                           self.room_capacity)
 
-    def create_room(self, room_name, room_type):
+    def create_room(self, room_name):
         """Create a new Living space room."""
         super(LivingSpace, self).create_room(room_name, 'Living Space')
