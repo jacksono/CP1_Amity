@@ -73,12 +73,21 @@ class TestAmityFunctions(unittest.TestCase):
                          " should be saved")
 
     def test_new_staff_added_and_allocated_to_a_room(self):
-        """Tests ifa new staff member is allocated a room after being added."""
+        """Tests if a staff member is allocated a room after being added."""
         self.amity.create_room("new", "o")
         self.amity.add_person("Steve", "Staff")
         self.assertIn(["Office", "Steve"],
                       list(self.amity.amity_offices.values()),
                       msg="New staff added should be allocated an office room")
+
+    def test_office_room_maximum_capacity_is_not_exceeded(self):
+        """Tests maximum capacity of an office is maintained."""
+        self.amity.create_room("new", "o")
+        for person in ["Steve", "Resty", "Paul", "John", "Jackie", "Mendis"]:
+            self.amity.add_person(person, "Staff")
+        self.assertEqual("All available Offices are fully occupied",
+                         self.amity.add_person("Kimmy", "Staff"),
+                         msg="Maximum capacity of office should not be")
 
 
 if __name__ == '__main__':
