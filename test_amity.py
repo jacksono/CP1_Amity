@@ -99,9 +99,10 @@ class TestAmityFunctions(unittest.TestCase):
         self.assertIn(["Joe"], list(self.amity.amity_offices.values()),
                       msg="Fellow added should be allocated only an office"
                       " if he chooses not to have accomodation")
-        self.assertNotIn(["Joe"], list(self.amity.amity_living_spaces.values(),
+        self.assertNotIn(["Joe"],
+                         list(self.amity.amity_living_spaces.values()),
                          msg="Fellow added should not be allocated"
-                         " LivingSpaceif he cooses not to have accomodation"))
+                         " LivingSpaceif he cooses not to have accomodation")
 
 
 if __name__ == '__main__':
