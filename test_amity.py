@@ -112,15 +112,14 @@ class TestAmityFunctions(unittest.TestCase):
         """
         self.amity.create_room("Office", "o")
         self.amity.create_room("LivingSpace", "l")
-        self.amity.add_person("Joe", "Fellow")
+        self.amity.add_person("Joe", "Fellow", True)
         self.assertIn(["Joe"], list(self.amity.amity_offices.values()),
                       msg="Fellow should be allocated both an office and"
                       " living spcae if he chooses to have accomodation")
         self.assertIn(["Joe"],
                       list(self.amity.amity_living_spaces.values()),
                       msg="Fellow should be allocated both an office and"
-                      " and living spcae if he chooses to have "
-                      " accomodation")
+                      " living space if he chooses to have accomodation")
 
 
 if __name__ == '__main__':
