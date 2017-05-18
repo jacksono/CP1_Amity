@@ -19,7 +19,7 @@ class Amity:
         self.staff = Staff()
         self.fellow = Fellow()
 
-    def create_room(self, room_name, type):
+    def create_room(self, room_name, type, occupant=''):
         """Create rooms given room names and room type."""
         if type == 'o':
             self.office.create_room(room_name)
@@ -34,6 +34,7 @@ class Amity:
         """Create people given name, type and accomodation option."""
         if person_type == 'Staff':
             self.staff.add_person(person_name)
+
             self.amity_staff.update(self.staff.all_people)
             self.amity_all_people.update(self.staff.all_people)
         elif person_type == 'Fellow':
