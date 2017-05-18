@@ -124,9 +124,10 @@ class TestAmityFunctions(unittest.TestCase):
     def test_living_space_room_maximum_capacity_is_not_exceeded(self):
         """Tests maximum capacity of a living space  is maintained."""
         self.amity.create_room("new", "l")
+        self.amity.create_room("new", "o")
         for person in ["Steve", "Resty", "Paul", "John"]:
             self.amity.add_person(person, "Fellow", True)
-        self.assertEqual("All available living space rooms are fully occupied",
+        self.assertEqual("All available living spaces are fully occupied",
                          self.amity.add_person("Kimmy", "Fellow", True),
                          msg="Maximum capacity of living space shouldnt be"
                          " exceeded")
