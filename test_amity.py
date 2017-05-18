@@ -29,7 +29,8 @@ class TestAmityFunctions(unittest.TestCase):
     def test_correct_living_space_created(self):
         """Tests if correct living space name and type are created."""
         self.amity.create_room('Go', 'l')
-        self.assertEqual(self.amity.amity_living_spaces['Go'][0], 'Living Space',
+        self.assertEqual(self.amity.amity_living_spaces['Go'][0],
+                         'Living Space',
                          msg="Correct living space name and type should be"
                          " returned")
 
@@ -70,6 +71,12 @@ class TestAmityFunctions(unittest.TestCase):
         self.assertFalse(self.amity.amity_fellows["Sharon"][1],
                          msg="Correct accomodation option for the fellow"
                          " should be saved")
+
+    def test_new_staff_added_and_allocated_to_a_room(self):
+        """Tests ifa new staff member is allocated a room after being added."""
+        self.amity.add_person("Steve", "Staff")
+        self.assertTrue(self.amity.amity_offices["Steve"][1], msg="New staff"
+                        " added should be allocated an office room")
 
 
 if __name__ == '__main__':
