@@ -28,6 +28,14 @@ class TestAmityFunctions(unittest.TestCase):
         self.amity.create_room('Go', 'l')
         self.assertEqual(self.amity.amity_living_spaces['Go'], 'Living Space')
 
+    def test_person_created_successfully(self):
+        """Tests if one person is created succesfully."""
+        initial_person_no = len(self.amity.amity_all_people)
+        self.amity.create_person("Daniel", "Staff")
+        final_person_no = len(self.amity.amity_all_people)
+        self.assertEqual(1, final_person_no - initial_person_no)
+
+
 
 if __name__ == '__main__':
     unittest.main()
