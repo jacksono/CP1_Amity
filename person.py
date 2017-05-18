@@ -19,3 +19,11 @@ class Staff:
     def add_person(self, person_name):
         """Create a new staff member with correct details."""
         super(Staff, self).add_person(person_name, "Staff")
+
+
+class Fellow:
+    """Class to create Fellows."""
+
+    def add_person(self, person_name, wants_acc):
+        """Create a new Fellow with correct details."""
+        super(Staff, self).add_person(person_name, "Staff", wants_acc)
