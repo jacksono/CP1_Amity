@@ -11,7 +11,7 @@ class TestAmityFunctions(unittest.TestCase):
         """Set up for the test cases."""
         self.amity = Amity()
 
-    def test_office_created_succesfully(self):
+    def test_room_created_succesfully(self):
         """Tests if one office room is created succesfully."""
         initial_room_no = len(self.amity.amity_all_rooms)
         self.amity.create_room("Tsavo", "o")
