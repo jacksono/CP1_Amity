@@ -75,3 +75,12 @@ class Amity:
                     self.amity_all_rooms.update(self.amity_living_spaces)
                 else:
                     return "All available living spaces are fully occupied"
+
+    def reallocate(self, person_name, new_room):
+        """Reallocate people from old room to a new one."""
+        if new_room in self.amity_offices:
+            for room, people in self.amity_offices.items():
+                if person_name in people:
+                    old_room = room
+            self.amity_offices[new_room].append(person_name)
+            self.amity_offices[old_room].remove(person_name)
