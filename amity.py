@@ -11,12 +11,15 @@ class Amity:
         self.amity_living_spaces = {}
         self.office = Office()
         self.living_space = LivingSpace()
+        self.amity_all_rooms = {}
 
     def create_room(self, room_name, type):
         """Create rooms given room names and room type."""
         if type == 'o':
             self.office.create_room(room_name)
             self.amity_offices.update(self.office.all_rooms)
+            self.amity_all_rooms.update(self.office.all_rooms)
         elif type == 'l':
             self.living_space.create_room(room_name)
             self.amity_living_spaces.update(self.living_space.all_rooms)
+            self.amity_all_rooms.update(self.living_space.all_rooms)
