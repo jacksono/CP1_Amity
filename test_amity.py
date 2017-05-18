@@ -132,6 +132,18 @@ class TestAmityFunctions(unittest.TestCase):
                          msg="Maximum capacity of living space shouldnt be"
                          " exceeded")
 
+    def test_staff_member_reallocated_correctly(self):
+        """Tests staff reallocated to correct room from old room."""
+        self.amity.create_room("Room1", "o")
+        self.amity.add_person("Carlos", "Staff")
+        self.amity.create_room("Room2", "o")
+        self.amity.reallocate("Carlos", "Room2")
+        self.assertIn(["Carlos"], self.amity.amity_offices["Room2"],
+                      msg="Staff should move to new room after reallocation")
+        self.assertNotIn(["Carlos"], self.amity.amity_offices["Room1"],
+                         msg="Staff should move from old room after"
+                         " reallocation")
+
 
 if __name__ == '__main__':
     unittest.main()
