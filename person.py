@@ -26,4 +26,4 @@ class Fellow:
 
     def add_person(self, person_name, wants_acc):
         """Create a new Fellow with correct details."""
-        super(Staff, self).add_person(person_name, "Staff", wants_acc)
+        super(Staff, self).add_person(person_name, "Fellow", wants_acc)
