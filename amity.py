@@ -84,3 +84,9 @@ class Amity:
                     old_room = room
             self.amity_offices[new_room].append(person_name)
             self.amity_offices[old_room].remove(person_name)
+        elif new_room in self.amity_living_spaces:
+            for room, people in self.amity_living_spaces.items():
+                if person_name in people:
+                    old_room = room
+            self.amity_living_spaces[new_room].append(person_name)
+            self.amity_living_spaces[old_room].remove(person_name)
