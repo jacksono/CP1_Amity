@@ -121,6 +121,16 @@ class TestAmityFunctions(unittest.TestCase):
                       msg="Fellow should be allocated both an office and"
                       " living space if he chooses to have accomodation")
 
+    def test_living_space_room_maximum_capacity_is_not_exceeded(self):
+        """Tests maximum capacity of a living space  is maintained."""
+        self.amity.create_room("new", "l")
+        for person in ["Steve", "Resty", "Paul", "John"]:
+            self.amity.add_person(person, "Fellow", True)
+        self.assertEqual("All available living space rooms are fully occupied",
+                         self.amity.add_person("Kimmy", "Fellow", True),
+                         msg="Maximum capacity of living space shouldnt be"
+                         " exceeded")
+
 
 if __name__ == '__main__':
     unittest.main()
