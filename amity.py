@@ -49,3 +49,11 @@ class Amity:
             self.fellow.add_person(person_name, wants_acc)
             self.amity_fellows.update(self.fellow.all_people)
             self.amity_all_people.update(self.fellow.all_people)
+            if self.amity_offices and not wants_acc:
+                allocated_room = random.choice(list(self.amity_offices.keys()))
+                if len(self.amity_offices[allocated_room])\
+                        < self.office.room_capacity:
+                    self.amity_offices[allocated_room].append(person_name)
+                    self.amity_all_rooms.update(self.amity_offices)
+                else:
+                    return "All available Offices are fully occupied"
