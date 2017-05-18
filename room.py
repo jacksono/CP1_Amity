@@ -12,7 +12,12 @@ class Room:
         self.room_name = room_name
         self.room_type = room_type
         self.room_capacity = room_capacity
-        self.rooms_list = []
+        self.all_rooms = {}
+
+    def create_room(self, room_name, room_type):
+        """Create a new room and add it to the all rooms dictionary."""
+        # do i need new args for room name and room type?
+        self.all_rooms_list[room_name] = room_type
 
 
 class Office(Room):
