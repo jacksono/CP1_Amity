@@ -12,9 +12,9 @@ class Room:
         self.room_capacity = 0
         self.all_rooms = {}
 
-    def create_room(self, room_name, room_type, occupant=''):
+    def create_room(self, room_name, occupant=''):
         """Create a new room and add it to the all rooms dictionary."""
-        self.all_rooms[room_name] = [room_type, occupant]
+        self.all_rooms[room_name] = []
 
 
 class Office(Room):
@@ -25,10 +25,6 @@ class Office(Room):
         super(Office, self).__init__()
         self.room_capacity = 6
 
-    def create_room(self, room_name):
-        """Create a new Office room."""
-        super(Office, self).create_room(room_name, 'Office')
-
 
 class LivingSpace(Room):
     """Class to create living space rooms."""
@@ -37,7 +33,3 @@ class LivingSpace(Room):
         """Initialise the LivingSpcae object."""
         super(LivingSpace, self).__init__()
         self.room_capacity = 4
-
-    def create_room(self, room_name):
-        """Create a new Living space room."""
-        super(LivingSpace, self).create_room(room_name, 'Living Space')
