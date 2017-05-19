@@ -170,6 +170,21 @@ class TestAmityFunctions(unittest.TestCase):
                          msg="Fellow should move from old living space after"
                          " reallocation")
 
+    def test_cannot_reallocate_a_person_to_a_full_room(self):
+        """Tests a person can't be allocated to a room which is full."""
+        pass
+
+    def test_relocating_a_person_to_the_same_room_returns_error_message(self):
+        """Tests that an error message is shown when a person is realloacted.
+
+        To a room in which he or she previously was.
+        """
+        self.amity.create_room("Room1", "o")
+        self.amity.add_person("Brenda", "Fellow")
+        self.assertEqual("Brenda is already in Room1",
+                         self.amity.reallocate("Brenda", "Room1"),
+                         msg="Shouldn't reallocate someone to the same room")
+
 
 if __name__ == '__main__':
     unittest.main()
