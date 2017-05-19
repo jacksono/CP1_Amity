@@ -248,6 +248,15 @@ class TestAmityFunctions(unittest.TestCase):
         self.assertNotIn("Peter", self.amity.amity_fellows, msg="Fellow should"
                          " no longer be in the fellow list")
 
+    def test_can_remove_occupant_from_an_office(self):
+        """Tests if remove_occupant removes a person from an office."""
+        self.amity.create_room("Room1", 'o')
+        self.amity.add_person("Peter", "Staff")
+        self.amity.remove_occupant("Peter", "Room1")
+        self.assertNotIn("Peter", self.amity.amity_offices["Room1"],
+                         msg="Person should no longer be an occupant of that"
+                         " office")
+
 
 if __name__ == '__main__':
     unittest.main()
