@@ -96,3 +96,12 @@ class Amity:
                                                             new_room)
             self.amity_living_spaces[new_room].append(person_name)
             self.amity_living_spaces[old_room].remove(person_name)
+
+    def delete_room(self, room_name):
+        """Delete room specified."""
+        if room_name in self.amity_offices:
+            del(self.amity_offices[room_name])
+        elif room_name in self.amity_living_spaces:
+            del(self.amity_living_spaces[room_name])
+        else:
+            return "That room does not exist"
