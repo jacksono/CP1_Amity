@@ -123,3 +123,9 @@ class Amity:
                 self.amity_living_spaces[room_name] = []
             else:
                 return "{} is not an office".format(room_name)
+        elif new_type == 'o':
+            if room_name in self.amity_living_spaces:
+                del(self.amity_living_spaces[room_name])
+                self.amity_offices[room_name] = []
+            else:
+                return "{} is not a living space".format(room_name)
