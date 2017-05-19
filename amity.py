@@ -129,3 +129,9 @@ class Amity:
                 self.amity_offices[room_name] = []
             else:
                 return "{} is not a living space".format(room_name)
+
+    def promote_fellow(self, fellow_name):
+        """Promote a fellow to a staff member."""
+        if fellow_name in self.amity_fellows:
+            del(self.amity_fellows[fellow_name])
+            self.add_person(fellow_name, "Staff")
