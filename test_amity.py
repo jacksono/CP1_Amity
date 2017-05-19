@@ -238,6 +238,15 @@ class TestAmityFunctions(unittest.TestCase):
         self.assertIn("Python", self.amity.amity_offices,
                       msg="Room should now be an office")
 
+    def test_can_promote_a_fellow_to_staff(self):
+        """Test if the promote_fellow method works correctly."""
+        self.amity.create_room("Room1", 'o')
+        self.amity.add_person("Peter", "Fellow")
+        self.amity.promote_fellow("Peter")
+        self.assertIn("Peter", self.amity.amity_staff, msg="Fellow should now"
+                      " be in the staff list")
+        self.assertNotIn("Peter", self.amity.amity_fellows, msg="Fellow should"
+                         " no longer be in the fellow list")
 
 
 if __name__ == '__main__':
