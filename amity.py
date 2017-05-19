@@ -140,3 +140,7 @@ class Amity:
         """Remove a person from a specified room."""
         if room_name in self.amity_offices:
             self.amity_offices[room_name].remove(person_name)
+        elif room_name in self.amity_living_spaces:
+            self.amity_living_spaces[room_name].remove(person_name)
+        else:
+            return "That Room doesnot exist"
