@@ -198,6 +198,20 @@ class TestAmityFunctions(unittest.TestCase):
                          msg="Room should be removed from rooms list after"
                          " being deleted")
 
+    def test_can_delete_a_person(self):
+        """Tests if the delete person method correctly deletes a person."""
+        self.amity.create_room("Room1", "0")
+        self.amity.add_person("Kate", "Staff")
+        self.amity.add_person("Bruce", "Fellow")
+        self.amity.delete_person("Kate")
+        self.amity.delete_person("Bruce")
+        self.assertNotIn("Kate", self.amity.amity_staff,
+                         msg="Person should be removed from  staff list after"
+                         " being deleted")
+        self.assertNotIn("Bruce", self.amity.amity_fellows,
+                         msg="Person should be removed from fellow list after"
+                         " being deleted")
+
 
 if __name__ == '__main__':
     unittest.main()
