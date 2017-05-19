@@ -200,7 +200,7 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_can_delete_a_person(self):
         """Tests if the delete person method correctly deletes a person."""
-        self.amity.create_room("Room1", "0")
+        self.amity.create_room("Room1", "o")
         self.amity.add_person("Kate", "Staff")
         self.amity.add_person("Bruce", "Fellow")
         self.amity.delete_person("Kate")
@@ -211,6 +211,22 @@ class TestAmityFunctions(unittest.TestCase):
         self.assertNotIn("Bruce", self.amity.amity_fellows,
                          msg="Person should be removed from fellow list after"
                          " being deleted")
+
+    def test_can_convert_office_to_living_space(self):
+        """Tests if the convert_room method works correctly.
+
+        Should be able to convert an office to a living space
+        """
+        self.amity.create_room("Oculus", "o")
+        self.amity.create_room("Python", "l")
+        self.amity.convert_room("Oculus", "l")
+        self.assertIn("Oculus", self.amity.amity_living_spaces,
+                      msg="Oculus should now be a living space")
+        self.assertNotIn("Oculus", self.amity.amity_offices,
+                         msg="Oculus should nolonger be  an office")
+
+
+
 
 
 if __name__ == '__main__':
