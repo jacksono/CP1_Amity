@@ -114,3 +114,12 @@ class Amity:
             del(self.amity_fellows[person_name])
         else:
             return "That person does not exist"
+
+    def convert_room(self, room_name, new_type):
+        """Convert a room to the new type specified."""
+        if new_type == 'l':
+            if room_name in self.amity_offices:
+                del(self.amity_offices[room_name])
+                self.amity_living_spaces[room_name] = []
+            else:
+                return "{} is not an office".format(room_name)
