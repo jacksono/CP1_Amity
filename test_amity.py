@@ -257,6 +257,17 @@ class TestAmityFunctions(unittest.TestCase):
                          msg="Person should no longer be an occupant of that"
                          " office")
 
+    def test_can_remove_occupant_from_a_living_space(self):
+        """Tests if remove_occupant removes a person from a living space."""
+        self.amity.create_room("Office", 'o')
+        self.amity.create_room("LivingSpace", 'l')
+        self.amity.add_person("Ema", "Fellow", True)
+        self.amity.remove_occupant("Ema", "LivingSpace")
+        self.assertNotIn("Ema",
+                         self.amity.amity_living_spaces["LivingSpace"],
+                         msg="Person should no longer be an occupant of that"
+                         " living space")
+
 
 if __name__ == '__main__':
     unittest.main()
