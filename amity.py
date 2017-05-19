@@ -105,3 +105,12 @@ class Amity:
             del(self.amity_living_spaces[room_name])
         else:
             return "That room does not exist"
+
+    def delete_person(self, person_name):
+        """Delete person specified."""
+        if person_name in self.amity_staff:
+            del(self.amity_staff[person_name])
+        elif person_name in self.amity_fellows:
+            del(self.amity_fellows[person_name])
+        else:
+            return "That person does not exist"
