@@ -135,3 +135,8 @@ class Amity:
         if fellow_name in self.amity_fellows:
             del(self.amity_fellows[fellow_name])
             self.add_person(fellow_name, "Staff")
+
+    def remove_occupant(self, person_name, room_name):
+        """Remove a person from a specified room."""
+        if room_name in self.amity_offices:
+            self.amity_offices[room_name].remove(person_name)
