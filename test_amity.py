@@ -191,10 +191,10 @@ class TestAmityFunctions(unittest.TestCase):
         self.amity.create_room("Room2", "l")
         self.amity.delete_room("Room1")
         self.amity.delete_room("Room2")
-        self.assertNotIn("Room1", self.amity_offices,
+        self.assertNotIn("Room1", self.amity.amity_offices,
                          msg="Room should be removed from rooms list after"
                          " being deleted")
-        self.assertNotIn("Room2", self.amity_living_spaces,
+        self.assertNotIn("Room2", self.amity.amity_living_spaces,
                          msg="Room should be removed from rooms list after"
                          " being deleted")
 
