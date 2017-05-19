@@ -221,11 +221,22 @@ class TestAmityFunctions(unittest.TestCase):
         self.amity.create_room("Python", "l")
         self.amity.convert_room("Oculus", "l")
         self.assertIn("Oculus", self.amity.amity_living_spaces,
-                      msg="Oculus should now be a living space")
+                      msg="Room should now be a living space")
         self.assertNotIn("Oculus", self.amity.amity_offices,
-                         msg="Oculus should nolonger be  an office")
+                         msg="Room should nolonger be  an office")
 
+    def test_can_convert_living_space_to_office(self):
+        """Tests if the convert_room method works correctly.
 
+        Should be able to convert a living space to an office
+        """
+        self.amity.create_room("Oculus", "o")
+        self.amity.create_room("Python", "l")
+        self.amity.convert_room("Python", "o")
+        self.assertNotIn("Python", self.amity.amity_living_spaces,
+                         msg="Room should nolonger be a living space")
+        self.assertIn("Python", self.amity.amity_offices,
+                      msg="Room should now be an office")
 
 
 
