@@ -185,6 +185,19 @@ class TestAmityFunctions(unittest.TestCase):
                          self.amity.reallocate("Brenda", "Room1"),
                          msg="Shouldn't reallocate someone to the same room")
 
+    def test_can_delete_a_room(self):
+        """Tests if the delete room method correctly deletes a room."""
+        self.amity.create_room("Room1", "o")
+        self.amity.create_room("Room2", "l")
+        self.amity.delete_room("Room1")
+        self.amity.delete_room("Room2")
+        self.assertNotIn("Room1", self.amity_offices,
+                         msg="Room should be removed from rooms list after"
+                         " being deleted")
+        self.assertNotIn("Room2", self.amity_living_spaces,
+                         msg="Room should be removed from rooms list after"
+                         " being deleted")
+
 
 if __name__ == '__main__':
     unittest.main()
