@@ -5,7 +5,7 @@ from amity import Amity
 
 
 class TestAmityFunctions(unittest.TestCase):
-    """Definiation of test cases for Amity functions."""
+    """Definition of test cases for Amity functions."""
 
     def setUp(self):
         """Fixture to setup an object of the Amity class for the test cases."""
