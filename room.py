@@ -1,7 +1,7 @@
 """Module to contain classes and methods related rooms in Amity."""
 
 
-class Room:
+class Room(object):
     """Parent class to LivingSpace class and Office class.
 
     Contains attribute and methods to be inherited
