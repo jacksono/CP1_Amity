@@ -1,7 +1,7 @@
 """Module to contain classes and methods related people in Amity."""
 
 
-class Person:
+class Person(object):
     """Parent class to Staff class and Fello class."""
 
     def __init__(self):
