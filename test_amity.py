@@ -10,11 +10,15 @@ class TestAmityFunctions(unittest.TestCase):
     def setUp(self):
         """Fixture to setup an object of the Amity class for the test cases."""
         self.amity = Amity()
+        self.amity.create_room("Tsavo", "o")
+        self.amity.create_room('Go', 'l')
+        self.amity.add_person("Bob", "Staff")
+        self.amity.add_person("Ritah", "Fellow")
 
     def test_room_created_succesfully(self):
         """Tests if one office room is created succesfully."""
         initial_room_no = len(self.amity.amity_all_rooms)
-        self.amity.create_room("Tsavo", "o")
+        self.amity.create_room("Ocullus", "o")
         final_room_no = len(self.amity.amity_all_rooms)
         self.assertEqual(1, final_room_no - initial_room_no,
                          msg="Number of rooms must increase by 1 if the room"
@@ -22,13 +26,11 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_correct_office_room_created(self):
         """Tests if correct office name and type are created."""
-        self.amity.create_room('Tsavo', 'o')
         self.assertIn("Tsavo", self.amity.amity_offices,
                       msg="Correct office name and type should be returned")
 
     def test_correct_living_space_created(self):
         """Tests if correct living space name and type are created."""
-        self.amity.create_room('Go', 'l')
         self.assertIn("Go", self.amity.amity_living_spaces, msg="Correct"
                       " living space name and type should be returned")
 
@@ -43,14 +45,12 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_correct_staff_member_added(self):
         """Tests if a staff member can be created with right details."""
-        self.amity.add_person("Roger", "Staff")
-        self.assertEqual(self.amity.amity_staff["Roger"][0], "Staff",
+        self.assertEqual(self.amity.amity_staff["Bob"][0], "Staff",
                          msg="Correct details of the staff should be added")
 
     def test_correct_fellow_added(self):
         """Tests if a fellow can be created with right details."""
         self.amity.add_person("Joseph", "Fellow", True)
-        self.amity.add_person("Ritah", "Fellow")
         self.assertEqual(self.amity.amity_fellows["Joseph"][0], "Fellow")
         self.assertEqual(self.amity.amity_fellows["Ritah"][0], "Fellow",
                          msg="Correct details of the fellow shoud be added")
@@ -58,7 +58,6 @@ class TestAmityFunctions(unittest.TestCase):
     def test_fellow_accomodation_option_picked_correctly(self):
         """Tests if fellow's accomodatio option is correctly picked."""
         self.amity.add_person("Joseph", "Fellow", True)
-        self.amity.add_person("Ritah", "Fellow")
         self.amity.add_person("Sharon", "Fellow", False)
         self.assertTrue(self.amity.amity_fellows["Joseph"][1],
                         msg="Correct accomodation option for the fellow should"
@@ -72,16 +71,13 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_new_staff_added_and_allocated_to_a_room(self):
         """Tests if a staff member is allocated an office after being added."""
-        self.amity.create_room("new", "o")
-        self.amity.add_person("Steve", "Staff")
-        self.assertIn(["Steve"],
-                      list(self.amity.amity_offices.values()),
+        self.assertIn("Bob",
+                      self.amity.amity_offices["Tsavo"],
                       msg="New staff added should be allocated an office room")
 
     def test_office_room_maximum_capacity_is_not_exceeded(self):
         """Tests maximum capacity of an office is maintained."""
-        self.amity.create_room("new", "o")
-        for person in ["Steve", "Resty", "Paul", "John", "Jackie", "Mendis"]:
+        for person in ["Steve", "Resty", "Paul", "John", "Jackie"]:
             self.amity.add_person(person, "Staff")
         self.assertEqual("All available Offices are fully occupied",
                          self.amity.add_person("Kimmy", "Staff"),
@@ -93,13 +89,9 @@ class TestAmityFunctions(unittest.TestCase):
         The fellow is allocated an office only if he chooses not to have
         accomodation.
         """
-        self.amity.create_room("Office", "o")
-        self.amity.create_room("LivingSpace", "l")
-        self.amity.add_person("Joe", "Fellow")
-        self.assertIn(["Joe"], list(self.amity.amity_offices.values()),
-                      msg="Fellow added should be allocated only an office"
-                      " if he chooses not to have accomodation")
-        self.assertNotIn(["Joe"],
+        self.assertIn("Ritah", self.amity.amity_offices["Tsavo"],
+                      msg="Fellow added should be allocated only an office")
+        self.assertNotIn(["Ritah"],
                          list(self.amity.amity_living_spaces.values()),
                          msg="Fellow added should not be allocated"
                          " LivingSpaceif he cooses not to have accomodation")
@@ -110,22 +102,18 @@ class TestAmityFunctions(unittest.TestCase):
         The fellow is allocated an office and living spcae if he chooses
         to have accomodation.
         """
-        self.amity.create_room("Office", "o")
-        self.amity.create_room("LivingSpace", "l")
         self.amity.add_person("Joe", "Fellow", True)
-        self.assertIn(["Joe"], list(self.amity.amity_offices.values()),
-                      msg="Fellow should be allocated both an office and"
-                      " living spcae if he chooses to have accomodation")
+        self.assertIn("Joe", self.amity.amity_offices["Tsavo"],
+                      msg="Fellow should be allocated an office")
         self.assertIn(["Joe"],
                       list(self.amity.amity_living_spaces.values()),
-                      msg="Fellow should be allocated both an office and"
-                      " living space if he chooses to have accomodation")
+                      msg="Fellow should be allocated both a living space"
+                      " if he chooses to have accomodation")
 
     def test_living_space_room_maximum_capacity_is_not_exceeded(self):
         """Tests maximum capacity of a living space  is maintained."""
-        self.amity.create_room("new", "l")
-        self.amity.create_room("new", "o")
-        for person in ["Steve", "Resty", "Paul", "John"]:
+        self.amity.remove_occupant("Bob", "Tsavo")
+        for person in ["Steve", "Resty", "Paul", "Jackie"]:
             self.amity.add_person(person, "Fellow", True)
         self.assertEqual("All available living spaces are fully occupied",
                          self.amity.add_person("Kimmy", "Fellow", True),
@@ -134,39 +122,33 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_staff_member_reallocated_correctly(self):
         """Tests staff reallocated to correct room from old room."""
-        self.amity.create_room("Room1", "o")
-        self.amity.add_person("Carlos", "Staff")
         self.amity.create_room("Room2", "o")
-        self.amity.reallocate("Carlos", "Room2")
-        self.assertIn("Carlos", self.amity.amity_offices["Room2"],
+        self.amity.reallocate("Bob", "Room2")
+        self.assertIn("Bob", self.amity.amity_offices["Room2"],
                       msg="Staff should move to new room after reallocation")
-        self.assertNotIn("Carlos", self.amity.amity_offices["Room1"],
+        self.assertNotIn("Bob", self.amity.amity_offices["Tsavo"],
                          msg="Staff should move from old room after"
                          " reallocation")
 
     def test_fellow_reallocated_to_office_correctly(self):
         """Tests if a fellow is reallocated to correct office from old one."""
-        self.amity.create_room("Room1", "o")
-        self.amity.add_person("Brenda", "Fellow")
         self.amity.create_room("Room2", "o")
-        self.amity.reallocate("Brenda", "Room2")
-        self.assertIn("Brenda", self.amity.amity_offices["Room2"],
+        self.amity.reallocate("Ritah", "Room2")
+        self.assertIn("Ritah", self.amity.amity_offices["Room2"],
                       msg="Fellow should move to new room after reallocation")
-        self.assertNotIn("Brenda", self.amity.amity_offices["Room1"],
+        self.assertNotIn("Ritah", self.amity.amity_offices["Tsavo"],
                          msg="Fellow should move from old room after"
                          " reallocation")
 
     def test_fellow_reallocated_to_living_space_correctly(self):
         """Tests if a fellow is reallocated to the correct living space."""
-        self.amity.create_room("Room1", "o")
-        self.amity.create_room("Room2", "l")
         self.amity.add_person("Brenda", "Fellow", True)
-        self.amity.create_room("Room3", "l")
-        self.amity.reallocate("Brenda", "Room3")
-        self.assertIn("Brenda", self.amity.amity_living_spaces["Room3"],
+        self.amity.create_room("Room2", "l")
+        self.amity.reallocate("Brenda", "Room2")
+        self.assertIn("Brenda", self.amity.amity_living_spaces["Room2"],
                       msg="Fellow should move to new living space after"
                       " reallocation")
-        self.assertNotIn("Brenda", self.amity.amity_living_spaces["Room2"],
+        self.assertNotIn("Brenda", self.amity.amity_living_spaces["Go"],
                          msg="Fellow should move from old living space after"
                          " reallocation")
 
@@ -179,36 +161,29 @@ class TestAmityFunctions(unittest.TestCase):
 
         To a room in which he or she previously was.
         """
-        self.amity.create_room("Room1", "o")
-        self.amity.add_person("Brenda", "Fellow")
-        self.assertEqual("Brenda is already in Room1",
-                         self.amity.reallocate("Brenda", "Room1"),
+        self.assertEqual("Ritah is already in Tsavo",
+                         self.amity.reallocate("Ritah", "Tsavo"),
                          msg="Shouldn't reallocate someone to the same room")
 
     def test_can_delete_a_room(self):
         """Tests if the delete room method correctly deletes a room."""
-        self.amity.create_room("Room1", "o")
-        self.amity.create_room("Room2", "l")
-        self.amity.delete_room("Room1")
-        self.amity.delete_room("Room2")
-        self.assertNotIn("Room1", self.amity.amity_offices,
-                         msg="Room should be removed from rooms list after"
+        self.amity.delete_room("Tsavo")
+        self.amity.delete_room("Go")
+        self.assertNotIn("Tsavo", self.amity.amity_offices,
+                         msg="Office should be removed from office list after"
                          " being deleted")
-        self.assertNotIn("Room2", self.amity.amity_living_spaces,
-                         msg="Room should be removed from rooms list after"
+        self.assertNotIn("Go", self.amity.amity_living_spaces,
+                         msg="Living space should be removed from list after"
                          " being deleted")
 
     def test_can_delete_a_person(self):
         """Tests if the delete person method correctly deletes a person."""
-        self.amity.create_room("Room1", "o")
-        self.amity.add_person("Kate", "Staff")
-        self.amity.add_person("Bruce", "Fellow")
-        self.amity.delete_person("Kate")
-        self.amity.delete_person("Bruce")
-        self.assertNotIn("Kate", self.amity.amity_staff,
+        self.amity.delete_person("Bob")
+        self.amity.delete_person("Ritah")
+        self.assertNotIn("Bob", self.amity.amity_staff,
                          msg="Person should be removed from  staff list after"
                          " being deleted")
-        self.assertNotIn("Bruce", self.amity.amity_fellows,
+        self.assertNotIn("Ritah", self.amity.amity_fellows,
                          msg="Person should be removed from fellow list after"
                          " being deleted")
 
@@ -217,12 +192,10 @@ class TestAmityFunctions(unittest.TestCase):
 
         Should be able to convert an office to a living space
         """
-        self.amity.create_room("Oculus", "o")
-        self.amity.create_room("Python", "l")
-        self.amity.convert_room("Oculus", "l")
-        self.assertIn("Oculus", self.amity.amity_living_spaces,
+        self.amity.convert_room("Tsavo", "l")
+        self.assertIn("Tsavo", self.amity.amity_living_spaces,
                       msg="Room should now be a living space")
-        self.assertNotIn("Oculus", self.amity.amity_offices,
+        self.assertNotIn("Tsavo", self.amity.amity_offices,
                          msg="Room should nolonger be  an office")
 
     def test_can_convert_living_space_to_office(self):
@@ -230,51 +203,41 @@ class TestAmityFunctions(unittest.TestCase):
 
         Should be able to convert a living space to an office
         """
-        self.amity.create_room("Oculus", "o")
-        self.amity.create_room("Python", "l")
-        self.amity.convert_room("Python", "o")
-        self.assertNotIn("Python", self.amity.amity_living_spaces,
+        self.amity.convert_room("Go", "o")
+        self.assertNotIn("Go", self.amity.amity_living_spaces,
                          msg="Room should nolonger be a living space")
-        self.assertIn("Python", self.amity.amity_offices,
+        self.assertIn("Go", self.amity.amity_offices,
                       msg="Room should now be an office")
 
     def test_can_promote_a_fellow_to_staff(self):
         """Test if the promote_fellow method works correctly."""
-        self.amity.create_room("Room1", 'o')
-        self.amity.add_person("Peter", "Fellow")
-        self.amity.promote_fellow("Peter")
-        self.assertIn("Peter", self.amity.amity_staff, msg="Fellow should now"
-                      " be in the staff list")
-        self.assertNotIn("Peter", self.amity.amity_fellows, msg="Fellow should"
-                         " no longer be in the fellow list")
+        self.amity.promote_fellow("Ritah")
+        self.assertIn("Ritah", self.amity.amity_staff, msg="Fellow should now"
+                      " be a staff member")
+        self.assertNotIn("Ritah", self.amity.amity_fellows, msg="Fellow should"
+                         " no longer be in a fellow")
 
     def test_can_remove_occupant_from_an_office(self):
         """Tests if remove_occupant removes a person from an office."""
-        self.amity.create_room("Room1", 'o')
-        self.amity.add_person("Peter", "Staff")
-        self.amity.remove_occupant("Peter", "Room1")
-        self.assertNotIn("Peter", self.amity.amity_offices["Room1"],
+        self.amity.remove_occupant("Bob", "Tsavo")
+        self.assertNotIn("Bob", self.amity.amity_offices["Tsavo"],
                          msg="Person should no longer be an occupant of that"
                          " office")
 
     def test_can_remove_occupant_from_a_living_space(self):
         """Tests if remove_occupant removes a person from a living space."""
-        self.amity.create_room("Office", 'o')
-        self.amity.create_room("LivingSpace", 'l')
         self.amity.add_person("Ema", "Fellow", True)
-        self.amity.remove_occupant("Ema", "LivingSpace")
+        self.amity.remove_occupant("Ema", "Go")
         self.assertNotIn("Ema",
-                         self.amity.amity_living_spaces["LivingSpace"],
+                         self.amity.amity_living_spaces["Go"],
                          msg="Person should no longer be an occupant of that"
                          " living space")
 
     def test_staff_cannot_access_living_space(self):
         """Tests that a staff member cannot access a living space room."""
-        self.amity.create_room("Office", 'o')
-        self.amity.create_room("LivingSpace", 'l')
         self.amity.add_person("Ema", "Staff", True)
         self.assertNotIn("Ema",
-                         self.amity.amity_living_spaces["LivingSpace"],
+                         self.amity.amity_living_spaces["Go"],
                          msg="Staff should not be an allocated to a"
                          " living space  room")
 
