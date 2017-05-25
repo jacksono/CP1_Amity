@@ -268,6 +268,16 @@ class TestAmityFunctions(unittest.TestCase):
                          msg="Person should no longer be an occupant of that"
                          " living space")
 
+    def test_staff_cannot_access_living_space(self):
+        """Tests that a staff member cannot access a living space room."""
+        self.amity.create_room("Office", 'o')
+        self.amity.create_room("LivingSpace", 'l')
+        self.amity.add_person("Ema", "Staff", True)
+        self.assertNotIn("Ema",
+                         self.amity.amity_living_spaces["LivingSpace"],
+                         msg="Staff should not be an allocated to a"
+                         " living space  room")
+
 
 if __name__ == '__main__':
     unittest.main()
