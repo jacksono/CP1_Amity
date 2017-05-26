@@ -3,20 +3,17 @@
 
 class Room(object):
     """Parent class to LivingSpace class and Office class.
-
     Contains attribute and methods to be inherited
     """
 
     def __init__(self):
         """Set Initialiser of the Room class."""
-        self.room_name = ''
-        self.room_type = ''
-        self.occupants = []
         self.room_capacity = 0
+        self.all_rooms = {}
 
-    def create_room(self, room_name):
+    def create_room(self, room_name, occupant=''):
         """Create a new room and add it to the all rooms dictionary."""
-        self.room_name = room_name
+        self.all_rooms[room_name] = []
 
 
 class Office(Room):
@@ -26,7 +23,6 @@ class Office(Room):
         """Initialise the Office object."""
         super(Office, self).__init__()
         self.room_capacity = 6
-        self.room_type = "Office"
 
 
 class LivingSpace(Room):
@@ -36,4 +32,3 @@ class LivingSpace(Room):
         """Initialise the LivingSpcae object."""
         super(LivingSpace, self).__init__()
         self.room_capacity = 4
-        self.room_type = "Living Space"
