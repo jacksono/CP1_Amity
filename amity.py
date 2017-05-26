@@ -13,7 +13,6 @@ class Amity:
         self.amity_living_spaces = {}
         self.office = Office()
         self.living_space = LivingSpace()
-        self.amity_all_rooms = {}
         self.amity_all_people = {}
         self.amity_staff = {}
         self.amity_fellows = {}
@@ -25,11 +24,9 @@ class Amity:
         if type == 'o':
             self.office.create_room(room_name)
             self.amity_offices.update(self.office.all_rooms)
-            self.amity_all_rooms.update(self.office.all_rooms)
         elif type == 'l':
             self.living_space.create_room(room_name)
             self.amity_living_spaces.update(self.living_space.all_rooms)
-            self.amity_all_rooms.update(self.living_space.all_rooms)
 
     def add_person(self, person_name, person_type, wants_acc=False):
         """Create people given name, type and accomodation option."""
@@ -42,7 +39,6 @@ class Amity:
                 if len(self.amity_offices[allocated_room])\
                         < self.office.room_capacity:
                     self.amity_offices[allocated_room].append(person_name)
-                    self.amity_all_rooms.update(self.amity_offices)
                 else:
                     return "All available Offices are fully occupied"
         elif person_type == 'Fellow':
@@ -54,7 +50,6 @@ class Amity:
                 if len(self.amity_offices[allocated_room])\
                         < self.office.room_capacity:
                     self.amity_offices[allocated_room].append(person_name)
-                    self.amity_all_rooms.update(self.amity_offices)
                 else:
                     return "All available Offices are fully occupied"
             elif self.amity_offices and self.amity_living_spaces and wants_acc:
@@ -65,14 +60,12 @@ class Amity:
                 if len(self.amity_offices[allocated_office])\
                         < self.office.room_capacity:
                     self.amity_offices[allocated_office].append(person_name)
-                    self.amity_all_rooms.update(self.amity_offices)
                 else:
                     return "All available offices are fully occupied"
                 if len(self.amity_living_spaces[allocated_living_space])\
                         < self.living_space.room_capacity:
                     self.amity_living_spaces[allocated_living_space].\
                       append(person_name)
-                    self.amity_all_rooms.update(self.amity_living_spaces)
                 else:
                     return "All available living spaces are fully occupied"
 
