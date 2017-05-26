@@ -63,14 +63,38 @@ class Amity(cmd.Cmd):
         amity.create_room(room_name, room_type)
 
     @docopt_cmd
+    def do_add_person(self, arg):
+        """Usage: add_person <person_name> <person_type> [<wants_accommodation>]"""
+        person_type = arg["<person_type>"]
+        person_name = arg["<person_name>"]
+        if arg["<wants_accommodation>"]:
+            wants_acc = arg["<wants_accommodation>"]
+            amity.add_person(person_name, person_type, wants_acc)
+        else:
+            amity.add_person(person_name, person_type)
+
+    @docopt_cmd
     def do_print_allocations(self, arg):
         """Usage: print_allocations"""
         if amity.amity_offices:
             for room, occupants in amity.amity_offices.items():
                 print(room)
                 print("-" * 6 * (len(occupants) + 1))
-                print(occupants)
+                occupants_list = ''
+                for occupant in occupants[:-1]:
+                    occupants_list += occupant + ", "
+                occupants_list += occupants[-1] + "."
+                print(occupants_list)
                 print()
+        if amity.amity_living_spaces:
+            for room, occupants in amity.amity_living_spaces.items():
+                print(room)
+                print("-" * 6 * (len(occupants) + 1))
+                occupants_list = ''
+                for occupant in occupants[:-1]:
+                    occupants_list += occupant + ", "
+                occupants_list += occupants[-1] + "."
+                print(occupants_list)
                 print()
         else:
             print("There are currently no allocations")
