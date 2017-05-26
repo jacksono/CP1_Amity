@@ -17,9 +17,9 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_room_created_succesfully(self):
         """Tests if one office room is created succesfully."""
-        initial_room_no = len(self.amity.amity_all_rooms)
+        initial_room_no = len(self.amity.amity_offices)
         self.amity.create_room("Ocullus", "o")
-        final_room_no = len(self.amity.amity_all_rooms)
+        final_room_no = len(self.amity.amity_offices)
         self.assertEqual(1, final_room_no - initial_room_no,
                          msg="Number of rooms must increase by 1 if the room"
                          " was created succesfully")
