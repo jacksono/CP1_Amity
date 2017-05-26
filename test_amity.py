@@ -36,9 +36,9 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_person_created_successfully(self):
         """Tests if one person is created succesfully."""
-        initial_person_no = len(self.amity.amity_all_people)
+        initial_person_no = len(self.amity.amity_staff)
         self.amity.add_person("Daniel", "Staff")
-        final_person_no = len(self.amity.amity_all_people)
+        final_person_no = len(self.amity.amity_staff)
         self.assertEqual(1, final_person_no - initial_person_no,
                          msg="Total number of people should increase by 1 if a"
                          " new person is created successfully")
@@ -79,7 +79,7 @@ class TestAmityFunctions(unittest.TestCase):
         """Tests maximum capacity of an office is maintained."""
         for person in ["Steve", "Resty", "Paul", "John", "Jackie"]:
             self.amity.add_person(person, "Staff")
-        self.assertEqual("All available Offices are fully occupied",
+        self.assertEqual("Allocated room: Tsavo is fully occupied. Please use reallocate to find a new room",
                          self.amity.add_person("Kimmy", "Staff"),
                          msg="Maximum capacity of office shouldnt be exceeded")
 
@@ -115,7 +115,7 @@ class TestAmityFunctions(unittest.TestCase):
         self.amity.remove_occupant("Bob", "Tsavo")
         for person in ["Steve", "Resty", "Paul", "Jackie"]:
             self.amity.add_person(person, "Fellow", True)
-        self.assertEqual("All available living spaces are fully occupied",
+        self.assertEqual("Allocated room: Go is fully occupied. Please use reallocate to find a new room",
                          self.amity.add_person("Kimmy", "Fellow", True),
                          msg="Maximum capacity of living space shouldnt be"
                          " exceeded")
