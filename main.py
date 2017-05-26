@@ -62,6 +62,19 @@ class Amity(cmd.Cmd):
         room_name = arg["<room_name>"]
         amity.create_room(room_name, room_type)
 
+    @docopt_cmd
+    def do_print_allocations(self, arg):
+        """Usage: print_allocations"""
+        if amity.amity_offices:
+            for room, occupants in amity.amity_offices.items():
+                print(room)
+                print("-" * 6 * (len(occupants) + 1))
+                print(occupants)
+                print()
+                print()
+        else:
+            print("There are currently no allocations")
+
 
 opt = docopt(__doc__, sys.argv[1:])
 Amity().cmdloop()
