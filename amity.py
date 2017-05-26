@@ -21,15 +21,21 @@ class Amity:
 
     def create_room(self, room_name, type, occupant=''):
         """Create rooms given room names and room type."""
-        if type == 'O' or type == "o":
+        if room_name in self.amity_offices or\
+                room_name in self.amity_living_spaces:
+            print("A room with that name already exists,"
+                  " please choose another name")
+        elif type == 'O' or type == "o":
             self.office.create_room(room_name)
             self.amity_offices.update(self.office.all_rooms)
+            print("{} has been created as an Office".format(room_name))
         elif type == 'l' or type == "L":
             self.living_space.create_room(room_name)
             self.amity_living_spaces.update(self.living_space.all_rooms)
+            print("{} has been created as a Living Space".format(room_name))
         else:
-            print("Please use o / O for Office type and l / L "
-                  " for Living space type")
+            print("Please use 'o' or 'O' for Office type and 'l' or 'L' "
+                  " for Living Space type")
 
     def add_person(self, person_name, person_type, wants_acc=False):
         """Create people given name, type and accomodation option."""
