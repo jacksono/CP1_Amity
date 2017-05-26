@@ -57,7 +57,7 @@ class Amity(cmd.Cmd):
 
     @docopt_cmd
     def do_create_room(self, arg):
-        """Usage: create_room <room_name> <room_type>..."""
+        """Usage: create_room <room_type> <room_name>"""
         room_type = arg["<room_type>"]
         room_name = arg["<room_name>"]
         amity.create_room(room_name, room_type)
