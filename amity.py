@@ -21,12 +21,15 @@ class Amity:
 
     def create_room(self, room_name, type, occupant=''):
         """Create rooms given room names and room type."""
-        if type == 'o':
+        if type == 'O' or type == "o":
             self.office.create_room(room_name)
             self.amity_offices.update(self.office.all_rooms)
-        elif type == 'l':
+        elif type == 'l' or type == "L":
             self.living_space.create_room(room_name)
             self.amity_living_spaces.update(self.living_space.all_rooms)
+        else:
+            print("Please use o / O for Office type and l / L "
+                  " for Living space type")
 
     def add_person(self, person_name, person_type, wants_acc=False):
         """Create people given name, type and accomodation option."""
