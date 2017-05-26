@@ -160,3 +160,20 @@ class Amity:
             self.amity_living_spaces[room_name].remove(person_name)
         else:
             return "That Room doesnot exist"
+
+    def unallocated(self):
+        """Retrieve a list of unallocated people."""
+        staff_list = list(self.amity_staff.keys())
+        fellow_list = list(self.amity_fellows.keys())
+        all_people = staff_list + fellow_list
+        all_allocated = []
+        for occupants in self.amity_offices.values():
+            for occupant in occupants:
+                all_allocated.append(occupant)
+        for occupants in self.amity_living_spaces.values():
+            for occupant in occupants:
+                all_allocated.append(occupant)
+        all_unallocated = []
+        for person in all_people:
+            if person not in all_allocated:
+                all_unallocated.append(person)
