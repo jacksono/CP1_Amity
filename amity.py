@@ -37,46 +37,45 @@ class Amity:
             print("Please use 'o' or 'O' for Office type and 'l' or 'L' "
                   " for Living Space type")
 
-    def add_person(self, person_name, person_type, wants_acc=False):
-        """Create people given name, type and accomodation option."""
-        if person_type == 'Staff':
-            self.staff.add_person(person_name)
-            self.amity_staff.update(self.staff.all_people)
-            self.amity_all_people.update(self.staff.all_people)
+    def allocate(self, person_name, room_type):
+        """Allocate a person to a room."""
+        if room_type == "o" or room_type == "O":
             if self.amity_offices:
                 allocated_room = random.choice(list(self.amity_offices.keys()))
                 if len(self.amity_offices[allocated_room])\
                         < self.office.room_capacity:
                     self.amity_offices[allocated_room].append(person_name)
                 else:
-                    return "All available Offices are fully occupied"
+                    return ("Allocated room: {} is fully occupied."
+                            " Please use reallocate to find a new room".format(
+                                allocated_room))
+        elif room_type == "l" or room_type == "L":
+            if self.amity_living_spaces:
+                allocated_room = random.choice(list(
+                    self.amity_living_spaces.keys()))
+                if len(self.amity_living_spaces[allocated_room])\
+                        < self.living_space.room_capacity:
+                    self.amity_living_spaces[allocated_room].append(
+                                                               person_name)
+                else:
+                    return ("Allocated room: {} is fully occupied."
+                            " Please use reallocate to find a new room".format(
+                                allocated_room))
+
+    def add_person(self, person_name, person_type, wants_acc=False):
+        """Create people given name, type and accomodation option."""
+        if person_type == 'Staff':
+            self.staff.add_person(person_name)
+            self.amity_staff.update(self.staff.all_people)
+            return self.allocate(person_name, "O")
         elif person_type == 'Fellow':
             self.fellow.add_person(person_name, wants_acc)
             self.amity_fellows.update(self.fellow.all_people)
-            self.amity_all_people.update(self.fellow.all_people)
-            if self.amity_offices and not wants_acc:
-                allocated_room = random.choice(list(self.amity_offices.keys()))
-                if len(self.amity_offices[allocated_room])\
-                        < self.office.room_capacity:
-                    self.amity_offices[allocated_room].append(person_name)
-                else:
-                    return "All available Offices are fully occupied"
-            elif self.amity_offices and self.amity_living_spaces and wants_acc:
-                allocated_office =\
-                 random.choice(list(self.amity_offices.keys()))
-                allocated_living_space =\
-                    random.choice(list(self.amity_living_spaces.keys()))
-                if len(self.amity_offices[allocated_office])\
-                        < self.office.room_capacity:
-                    self.amity_offices[allocated_office].append(person_name)
-                else:
-                    return "All available offices are fully occupied"
-                if len(self.amity_living_spaces[allocated_living_space])\
-                        < self.living_space.room_capacity:
-                    self.amity_living_spaces[allocated_living_space].\
-                      append(person_name)
-                else:
-                    return "All available living spaces are fully occupied"
+            if not wants_acc:
+                return self.allocate(person_name, "O")
+            elif wants_acc:
+                self.allocate(person_name, "O")
+                return self.allocate(person_name, "L")
 
     def reallocate(self, person_name, new_room):
         """Reallocate people from old room to a new one."""
