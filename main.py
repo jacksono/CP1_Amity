@@ -77,6 +77,8 @@ class Amity(cmd.Cmd):
     def do_print_allocations(self, arg):
         """Usage: print_allocations"""
         if amity.amity_offices:
+            print("Offices")
+            print("____________________________")
             for room, occupants in amity.amity_offices.items():
                 print(room)
                 print("-" * 6 * (len(occupants) + 1))
@@ -86,7 +88,11 @@ class Amity(cmd.Cmd):
                 occupants_list += occupants[-1] + "."
                 print(occupants_list)
                 print()
+        else:
+            print("There are currently no offices allocated")
         if amity.amity_living_spaces:
+            print("Offices")
+            print("____________________________")
             for room, occupants in amity.amity_living_spaces.items():
                 print(room)
                 print("-" * 6 * (len(occupants) + 1))
@@ -97,7 +103,7 @@ class Amity(cmd.Cmd):
                 print(occupants_list)
                 print()
         else:
-            print("There are currently no allocations")
+            print("There are currently no Living Spaces allocated")
 
 
 opt = docopt(__doc__, sys.argv[1:])
