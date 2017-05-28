@@ -177,3 +177,4 @@ class Amity:
         for person in all_people:
             if person not in all_allocated:
                 all_unallocated.append(person)
+        return all_unallocated
