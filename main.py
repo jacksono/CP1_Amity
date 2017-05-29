@@ -91,12 +91,8 @@ class Amity(cmd.Cmd):
             for room, occupants in amity.amity_offices.items():
                 print(room)
                 print("-" * 6 * (len(occupants) + 1))
-                occupants_list = ''
                 if occupants:
-                    for occupant in occupants[:-1]:
-                        occupants_list += occupant + ", "
-                    occupants_list += occupants[-1] + "."
-                    print(occupants_list)
+                    print(", ".join(occupants))
                     print()
                 else:
                     print("No occupants yet")
@@ -109,12 +105,8 @@ class Amity(cmd.Cmd):
             for room, occupants in amity.amity_living_spaces.items():
                 print(room)
                 print("-" * 6 * (len(occupants) + 1))
-                occupants_list = ''
                 if occupants:
-                    for occupant in occupants[:-1]:
-                        occupants_list += occupant + ", "
-                    occupants_list += occupants[-1] + "."
-                    print(occupants_list)
+                    print(", ".join(occupants))
                     print()
                 else:
                     print("No occupants yet")
@@ -130,25 +122,31 @@ class Amity(cmd.Cmd):
 
     @docopt_cmd
     def do_print_unallocated(self, arg):
-        """Usage: print_unallocated"""
+        """Usage: print_unallocated [<file_name>]"""
+        file_name = arg["<file_name>"]
         amity.print_unallocated()
         print("\n" + "*" * 15)
         if amity.unallocated_offices:
-            print("Peolple who need offices")
+            print("People who need offices")
             print("-" * 15)
-            print(amity.unallocated_offices)
+            print(", ".join(amity.unallocated_offices))
             print()
         else:
             print("There are currently no people who need Offices")
         if amity.unallocated_living_spaces:
-            print("Peolple who need Living spaces")
+            print("People who need Living spaces")
             print("-" * 15)
-            print(amity.unallocated_living_spaces)
+            print(", ".join(amity.unallocated_living_spaces))
             print()
         else:
             print("There are currently no people who need Living Spaces")
+        if file_name:
+            amity.load_unallocated_to_file(file_name)
+            print("\n\nUnallocated list has been loaded to: {}".format(
+                                                                file_name))
         print("*" * 15)
         print()
+
 
     @docopt_cmd
     def do_reallocate(self, arg):
@@ -176,12 +174,8 @@ class Amity(cmd.Cmd):
                     if room == room_name:
                         print(room)
                         print("-" * 6 * (len(occupants) + 1))
-                        occupants_list = ''
                         if occupants:
-                            for occupant in occupants[:-1]:
-                                occupants_list += occupant + ", "
-                            occupants_list += occupants[-1] + "."
-                            print(occupants_list)
+                            print(", ".join(occupants))
                             print()
                         else:
                             print("No occupants yet\n")

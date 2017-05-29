@@ -226,12 +226,8 @@ class Amity:
             for room, occupants in self.amity_offices.items():
                 f.write("\n" + room + "\n")
                 f.write("-" * 6 * (len(occupants) + 1) + "\n")
-                occupants_list = ''
                 if occupants:
-                    for occupant in occupants[:-1]:
-                        occupants_list += occupant + ", "
-                    occupants_list += occupants[-1] + "."
-                    f.write(occupants_list + "\n")
+                    f.write(", ".join(occupants) + "\n")
                 else:
                     f.write("No occupants yet\n")
         else:
@@ -242,14 +238,29 @@ class Amity:
             for room, occupants in self.amity_living_spaces.items():
                 f.write("\n" + room + "\n")
                 f.write("-" * 6 * (len(occupants) + 1) + "\n")
-                occupants_list = ''
                 if occupants:
-                    for occupant in occupants[:-1]:
-                        occupants_list += occupant + ", "
-                    occupants_list += occupants[-1] + "."
-                    f.write(occupants_list + "\n")
+                    f.write(", ".join(occupants) + "\n")
                 else:
                     f.write("No occupants yet\n")
         else:
             f.write("\nThere are currently no Living Spaces allocated")
+        f.close()
+
+    def load_unallocated_to_file(self, file_name):
+        """Load list of unallocated people to a text file."""
+        f = open(file_name, mode="wt")
+        if self.unallocated_offices:
+            f.write("\nPeople who need offices\n")
+            f.write("-" * 15 + "\n")
+            for person in self.unallocated_offices:
+                f.write("> " + person + "\n")
+        else:
+            f.write("\nThere are currently no people who need Offices\n")
+        if self.unallocated_living_spaces:
+            f.write("\n\nPeople who need Living spaces\n")
+            f.write("-" * 15 + "\n")
+            for person in self.unallocated_living_spaces:
+                f.write("> " + person + "\n")
+        else:
+            f.write("\nThere are currently no people who need Living Spaces\n")
         f.close()
