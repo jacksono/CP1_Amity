@@ -104,19 +104,39 @@ class Amity:
                 if person_name in people:
                     old_room = room
                     if old_room == new_room:
-                        return "{} is already in {}".format(person_name,
-                                                            new_room)
+                        print("{0} is already in {1}".format(person_name,
+                                                             new_room))
+                        return "{0} is already in {1}".format(person_name,
+                                                              new_room)
             self.amity_offices[new_room].append(person_name)
-            self.amity_offices[old_room].remove(person_name)
+            if old_room:
+                self.amity_offices[old_room].remove(person_name)
+            print("{0} has been reallocated to {1}".format(person_name,
+                                                           new_room))
         elif new_room in self.amity_living_spaces:
-            for room, people in self.amity_living_spaces.items():
-                if person_name in people:
-                    old_room = room
-                    if old_room == new_room:
-                        return "{} is already in {}".format(person_name,
-                                                            new_room)
-            self.amity_living_spaces[new_room].append(person_name)
-            self.amity_living_spaces[old_room].remove(person_name)
+            wants_acc = []
+            for person, option in self.amity_fellows.items():
+                if option[1]:
+                    wants_acc.append(person)
+            if person_name in wants_acc:
+                for room, people in self.amity_living_spaces.items():
+                    if person_name in people:
+                        old_room = room
+                        if old_room == new_room:
+                            print("{0} is already in {1}".format(person_name,
+                                                                 new_room))
+                            return "{0} is already in {1}".format(person_name,
+                                                                  new_room)
+                self.amity_living_spaces[new_room].append(person_name)
+                if old_room:
+                    self.amity_living_spaces[old_room].remove(person_name)
+                print("{0} has been reallocated to {1}".format(person_name,
+                                                               new_room))
+            else:
+                print("{} does not qualify for a living space".format(
+                                                                person_name))
+        else:
+            print("{} is not a room in Amity".format(new_room))
 
     def delete_room(self, room_name):
         """Delete room specified."""

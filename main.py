@@ -67,7 +67,7 @@ class Amity(cmd.Cmd):
 
     @docopt_cmd
     def do_add_person(self, arg):
-        """Usage: add_person <person_name> <person_type> [<wants_accommodation>]"""
+        """Usage: add_person <person_name> <Staff|Fellow> [<wants_accommodation>]"""
         person_type = arg["<person_type>"]
         person_name = arg["<person_name>"]
         print("\n" + "*" * 15)
@@ -90,25 +90,33 @@ class Amity(cmd.Cmd):
                 print(room)
                 print("-" * 6 * (len(occupants) + 1))
                 occupants_list = ''
-                for occupant in occupants[:-1]:
-                    occupants_list += occupant + ", "
-                occupants_list += occupants[-1] + "."
-                print(occupants_list)
-                print()
+                if occupants:
+                    for occupant in occupants[:-1]:
+                        occupants_list += occupant + ", "
+                    occupants_list += occupants[-1] + "."
+                    print(occupants_list)
+                    print()
+                else:
+                    print("No occupants yet")
+                    print()
         else:
             print("There are currently no offices allocated")
         if amity.amity_living_spaces:
-            print("Offices")
+            print("Living spaces")
             print("____________________________")
             for room, occupants in amity.amity_living_spaces.items():
                 print(room)
                 print("-" * 6 * (len(occupants) + 1))
                 occupants_list = ''
-                for occupant in occupants[:-1]:
-                    occupants_list += occupant + ", "
-                occupants_list += occupants[-1] + "."
-                print(occupants_list)
-                print()
+                if occupants:
+                    for occupant in occupants[:-1]:
+                        occupants_list += occupant + ", "
+                    occupants_list += occupants[-1] + "."
+                    print(occupants_list)
+                    print()
+                else:
+                    print("No occupants yet")
+                    print()
         else:
             print("There are currently no Living Spaces allocated")
         print("*" * 15)
@@ -136,6 +144,19 @@ class Amity(cmd.Cmd):
         print("*" * 15)
         print()
 
+    @docopt_cmd
+    def do_reallocate(self, arg):
+        """Usage: reallocate <person_name> <new_room>"""
+        new_room = arg["<new_room>"]
+        person_name = arg["<person_name>"]
+        if person_name in (list(amity.amity_fellows.keys()) +
+                           list(amity.amity_staff.keys())):
+            print("\n" + "*" * 15)
+            amity.reallocate(person_name, new_room)
+            print("*" * 15 + "\n")
+        else:
+            print("\n{} is int a person in Amity".format(person_name))
+            print("*" * 15 + "\n")
 
 opt = docopt(__doc__, sys.argv[1:])
 Amity().cmdloop()
