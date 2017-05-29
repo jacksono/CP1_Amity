@@ -10,15 +10,15 @@ class TestAmityFunctions(unittest.TestCase):
     def setUp(self):
         """Fixture to setup an object of the Amity class for the test cases."""
         self.amity = Amity()
-        self.amity.create_room("Tsavo", "o")
-        self.amity.create_room('Go', 'l')
+        self.amity.create_room(["Tsavo"], "o")
+        self.amity.create_room(['Go'], 'l')
         self.amity.add_person("Bob", "Staff")
         self.amity.add_person("Ritah", "Fellow")
 
     def test_room_created_succesfully(self):
         """Tests if one office room is created succesfully."""
         initial_room_no = len(self.amity.amity_offices)
-        self.amity.create_room("Ocullus", "o")
+        self.amity.create_room(["Ocullus"], "o")
         final_room_no = len(self.amity.amity_offices)
         self.assertEqual(1, final_room_no - initial_room_no,
                          msg="Number of rooms must increase by 1 if the room"
@@ -120,7 +120,7 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_staff_member_reallocated_correctly(self):
         """Tests staff reallocated to correct room from old room."""
-        self.amity.create_room("Room2", "o")
+        self.amity.create_room(["Room2"], "o")
         self.amity.reallocate("Bob", "Room2")
         self.assertIn("Bob", self.amity.amity_offices["Room2"],
                       msg="Staff should move to new room after reallocation")
@@ -130,7 +130,7 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_fellow_reallocated_to_office_correctly(self):
         """Tests if a fellow is reallocated to correct office from old one."""
-        self.amity.create_room("Room2", "o")
+        self.amity.create_room(["Room2"], "o")
         self.amity.reallocate("Ritah", "Room2")
         self.assertIn("Ritah", self.amity.amity_offices["Room2"],
                       msg="Fellow should move to new room after reallocation")
@@ -141,7 +141,7 @@ class TestAmityFunctions(unittest.TestCase):
     def test_fellow_reallocated_to_living_space_correctly(self):
         """Tests if a fellow is reallocated to the correct living space."""
         self.amity.add_person("Brenda", "Fellow", True)
-        self.amity.create_room("Room2", "l")
+        self.amity.create_room(["Room2"], "l")
         self.amity.reallocate("Brenda", "Room2")
         self.assertIn("Brenda", self.amity.amity_living_spaces["Room2"],
                       msg="Fellow should move to new living space after"
