@@ -95,10 +95,11 @@ class Amity:
                     print(self.allocate(person_name, "O"))
                     print(self.allocate(person_name, "L"))
         else:
-            print("Please use 'Staff' or 'Fellow' for person types.")
+            print("Please use 'Staff' or 'Fellow' for person type.")
 
     def reallocate(self, person_name, new_room):
         """Reallocate people from old room to a new one."""
+        old_room = "old"
         if new_room in self.amity_offices:
             for room, people in self.amity_offices.items():
                 if person_name in people:
@@ -109,7 +110,7 @@ class Amity:
                         return "{0} is already in {1}".format(person_name,
                                                               new_room)
             self.amity_offices[new_room].append(person_name)
-            if old_room:
+            if old_room != "old":
                 self.amity_offices[old_room].remove(person_name)
             print("{0} has been reallocated to {1}".format(person_name,
                                                            new_room))
@@ -128,7 +129,7 @@ class Amity:
                             return "{0} is already in {1}".format(person_name,
                                                                   new_room)
                 self.amity_living_spaces[new_room].append(person_name)
-                if old_room:
+                if old_room != "old":
                     self.amity_living_spaces[old_room].remove(person_name)
                 print("{0} has been reallocated to {1}".format(person_name,
                                                                new_room))

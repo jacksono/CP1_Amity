@@ -67,7 +67,7 @@ class Amity(cmd.Cmd):
 
     @docopt_cmd
     def do_add_person(self, arg):
-        """Usage: add_person <person_name> <Staff|Fellow> [<wants_accommodation>]"""
+        """Usage: add_person <person_name> <person_type> [<wants_accommodation>]"""
         person_type = arg["<person_type>"]
         person_name = arg["<person_name>"]
         print("\n" + "*" * 15)
