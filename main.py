@@ -158,5 +158,32 @@ class Amity(cmd.Cmd):
             print("\n{} is int a person in Amity".format(person_name))
             print("*" * 15 + "\n")
 
+    @docopt_cmd
+    def do_print_room(self, arg):
+        """Usage: print_room <room_name>"""
+        room_name = arg["<room_name>"]
+        print("\n" + "*" * 15)
+        if (room_name in amity.amity_offices or
+                room_name in amity.amity_living_spaces):
+            if amity.amity_offices or amity.amity_living_spaces:
+                for room, occupants in amity.amity_offices.items():
+                    if room == room_name:
+                        print(room)
+                        print("-" * 6 * (len(occupants) + 1))
+                        occupants_list = ''
+                        if occupants:
+                            for occupant in occupants[:-1]:
+                                occupants_list += occupant + ", "
+                            occupants_list += occupants[-1] + "."
+                            print(occupants_list)
+                            print()
+                        else:
+                            print("No occupants yet\n")
+            else:
+                print("There are currently no rooms in Amity\n")
+        else:
+            print("{} is not a room in Amity\n".format(room_name))
+
+
 opt = docopt(__doc__, sys.argv[1:])
 Amity().cmdloop()
