@@ -18,6 +18,8 @@ class Amity:
         self.amity_fellows = {}
         self.staff = Staff()
         self.fellow = Fellow()
+        self.unallocated_offices = []
+        self.unallocated_living_spaces = []
 
     def create_room(self, room_name, type, occupant=''):
         """Create rooms given room names and room type."""
@@ -74,23 +76,26 @@ class Amity:
 
     def add_person(self, person_name, person_type, wants_acc=False):
         """Create people given name, type and accomodation option."""
-        if (person_name in self.amity_staff or
-                person_name in self.amity_fellows):
-            print("That name already exists, Please use another name")
-        elif person_type == 'Staff':
-            self.staff.add_person(person_name)
-            self.amity_staff.update(self.staff.all_people)
-            print("{} has been created as a Staff".format(person_name))
-            print(self.allocate(person_name, "O"))
-        elif person_type == 'Fellow':
-            self.fellow.add_person(person_name, wants_acc)
-            self.amity_fellows.update(self.fellow.all_people)
-            print("{} has been created as a Fellow".format(person_name))
-            if not wants_acc:
+        if person_type == "Staff" or person_type == "Fellow":
+            if (person_name in self.amity_staff or
+                    person_name in self.amity_fellows):
+                print("That name already exists, Please use another name")
+            elif person_type == 'Staff':
+                self.staff.add_person(person_name)
+                self.amity_staff.update(self.staff.all_people)
+                print("{} has been created as a Staff".format(person_name))
                 print(self.allocate(person_name, "O"))
-            elif wants_acc:
-                print(self.allocate(person_name, "O"))
-                print(self.allocate(person_name, "L"))
+            elif person_type == 'Fellow':
+                self.fellow.add_person(person_name, wants_acc)
+                self.amity_fellows.update(self.fellow.all_people)
+                print("{} has been created as a Fellow".format(person_name))
+                if not wants_acc:
+                    print(self.allocate(person_name, "O"))
+                elif wants_acc:
+                    print(self.allocate(person_name, "O"))
+                    print(self.allocate(person_name, "L"))
+        else:
+            print("Please use 'Staff' or 'Fellow' for person types.")
 
     def reallocate(self, person_name, new_room):
         """Reallocate people from old room to a new one."""
@@ -161,20 +166,30 @@ class Amity:
         else:
             return "That Room doesnot exist"
 
-    def unallocated(self):
+    def print_unallocated(self):
         """Retrieve a list of unallocated people."""
-        staff_list = list(self.amity_staff.keys())
-        fellow_list = list(self.amity_fellows.keys())
-        all_people = staff_list + fellow_list
-        all_allocated = []
+        staff_set = set(self.amity_staff.keys())
+        fellow_set = set(self.amity_fellows.keys())
+        fellow_living = []
+        office_allocated = []
+        living_space_allocated = []
         for occupants in self.amity_offices.values():
             for occupant in occupants:
-                all_allocated.append(occupant)
+                office_allocated.append(occupant)
         for occupants in self.amity_living_spaces.values():
             for occupant in occupants:
-                all_allocated.append(occupant)
-        all_unallocated = []
-        for person in all_people:
-            if person not in all_allocated:
-                all_unallocated.append(person)
-        return all_unallocated
+                living_space_allocated.append(occupant)
+        staff_with_no_offices = staff_set.difference(office_allocated)
+        fellows_with_no_offices = fellow_set.difference(office_allocated)
+        for fellow, option in self.amity_fellows.items():
+            if option[1]:
+                fellow_living.append(fellow)
+        fellows_with_no_living = set(fellow_living).difference(
+                                                      living_space_allocated)
+        for person in staff_with_no_offices.union(fellows_with_no_offices):
+            if person not in self.unallocated_offices:
+                self.unallocated_offices.append(person)
+        for person in fellows_with_no_living:
+            if person not in self.unallocated_living_spaces:
+                self.unallocated_living_spaces.append(person)
+        return self.unallocated_offices + self.unallocated_living_spaces

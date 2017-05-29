@@ -60,22 +60,29 @@ class Amity(cmd.Cmd):
         """Usage: create_room <room_type> <room_name>"""
         room_type = arg["<room_type>"]
         room_name = arg["<room_name>"]
+        print("\n" + "*" * 15)
         amity.create_room(room_name, room_type)
+        print("*" * 15)
+        print()
 
     @docopt_cmd
     def do_add_person(self, arg):
         """Usage: add_person <person_name> <person_type> [<wants_accommodation>]"""
         person_type = arg["<person_type>"]
         person_name = arg["<person_name>"]
+        print("\n" + "*" * 15)
         if arg["<wants_accommodation>"]:
             wants_acc = arg["<wants_accommodation>"]
             amity.add_person(person_name, person_type, wants_acc)
         else:
             amity.add_person(person_name, person_type)
+        print("*" * 15)
+        print()
 
     @docopt_cmd
     def do_print_allocations(self, arg):
         """Usage: print_allocations"""
+        print("\n" + "*" * 15)
         if amity.amity_offices:
             print("Offices")
             print("____________________________")
@@ -104,6 +111,30 @@ class Amity(cmd.Cmd):
                 print()
         else:
             print("There are currently no Living Spaces allocated")
+        print("*" * 15)
+        print()
+
+    @docopt_cmd
+    def do_print_unallocated(self, arg):
+        """Usage: print_unallocated"""
+        amity.print_unallocated()
+        print("\n" + "*" * 15)
+        if amity.unallocated_offices:
+            print("Peolple who need offices")
+            print("-" * 15)
+            print(amity.unallocated_offices)
+            print()
+        else:
+            print("There are currently no people who need Offices")
+        if amity.unallocated_living_spaces:
+            print("Peolple who need Living spaces")
+            print("-" * 15)
+            print(amity.unallocated_living_spaces)
+            print()
+        else:
+            print("There are currently no people who need Living Spaces")
+        print("*" * 15)
+        print()
 
 
 opt = docopt(__doc__, sys.argv[1:])

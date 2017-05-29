@@ -242,11 +242,10 @@ class TestAmityFunctions(unittest.TestCase):
     def test_can_get_unallocated_people(self):
         """Tests that a list of unallocated people can be retrieved."""
         self.amity.delete_room("Tsavo")
-        self.amity.delete_room("Go")
         self.amity.add_person("Bruce", "Staff")
         self.amity.create_room("Valhala", "O")
         self.amity.add_person("Edna", "Staff")
-        self.assertIn("Bruce", self.amity.unallocated())
+        self.assertEqual(["Bruce"], self.amity.print_unallocated())
 
 
 if __name__ == '__main__':
