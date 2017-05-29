@@ -35,7 +35,8 @@ class Amity:
             elif type == 'l' or type == "L":
                 self.living_space.create_room(room_name)
                 self.amity_living_spaces.update(self.living_space.all_rooms)
-                print("{} has been created as a Living Space".format(room_name))
+                print("{} has been created as a Living Space".format(
+                                                                room_name))
             else:
                 print("Please use 'o' or 'O' for Office type and 'l' or 'L' "
                       " for Living Space type")
@@ -215,3 +216,40 @@ class Amity:
             if person not in self.unallocated_living_spaces:
                 self.unallocated_living_spaces.append(person)
         return self.unallocated_offices + self.unallocated_living_spaces
+
+    def load_allocations_to_file(self, file_name):
+        """Load the allocations to a text file."""
+        f = open(file_name, mode='wt')
+        if self.amity_offices:
+            f.write("\nOffices\n")
+            f.write("____________________________\n")
+            for room, occupants in self.amity_offices.items():
+                f.write("\n" + room + "\n")
+                f.write("-" * 6 * (len(occupants) + 1) + "\n")
+                occupants_list = ''
+                if occupants:
+                    for occupant in occupants[:-1]:
+                        occupants_list += occupant + ", "
+                    occupants_list += occupants[-1] + "."
+                    f.write(occupants_list + "\n")
+                else:
+                    f.write("No occupants yet\n")
+        else:
+            f.write("\nThere are currently no offices allocated\n")
+        if self.amity_living_spaces:
+            f.write("\n\nLiving spaces\n")
+            f.write("____________________________\n")
+            for room, occupants in self.amity_living_spaces.items():
+                f.write("\n" + room + "\n")
+                f.write("-" * 6 * (len(occupants) + 1) + "\n")
+                occupants_list = ''
+                if occupants:
+                    for occupant in occupants[:-1]:
+                        occupants_list += occupant + ", "
+                    occupants_list += occupants[-1] + "."
+                    f.write(occupants_list + "\n")
+                else:
+                    f.write("No occupants yet\n")
+        else:
+            f.write("\nThere are currently no Living Spaces allocated")
+        f.close()

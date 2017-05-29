@@ -81,7 +81,9 @@ class Amity(cmd.Cmd):
 
     @docopt_cmd
     def do_print_allocations(self, arg):
-        """Usage: print_allocations"""
+        """Usage: print_allocations [<file_name>]"""
+        file_name = arg["<file_name>"]
+        print
         print("\n" + "*" * 15)
         if amity.amity_offices:
             print("Offices")
@@ -119,6 +121,10 @@ class Amity(cmd.Cmd):
                     print()
         else:
             print("There are currently no Living Spaces allocated")
+        if file_name:
+            amity.load_allocations_to_file(file_name)
+            print("\n\nAllocations have been loaded to the text file: {}".format(
+                                                                    file_name))
         print("*" * 15)
         print()
 
