@@ -152,7 +152,6 @@ class Amity(cmd.Cmd):
         print("*" * 15)
         print()
 
-
     @docopt_cmd
     def do_reallocate(self, arg):
         """Usage: reallocate <person_name> <new_room>"""
@@ -211,6 +210,13 @@ class Amity(cmd.Cmd):
                 print("*" * 15)
         f.close()
 
+    @docopt_cmd
+    def do_save_state(self, arg):
+        """Usage: save_state [<db_name>]"""
+        print("\n" + "*" * 15)
+        amity.save_state()
+
+        print("*" * 15)
 
 opt = docopt(__doc__, sys.argv[1:])
 Amity().cmdloop()

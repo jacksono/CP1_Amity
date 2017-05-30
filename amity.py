@@ -2,6 +2,9 @@
 from room import Office, LivingSpace
 from person import Fellow, Staff
 import random
+from db.db import Rooms, People, create_db, Allocations, Base
+from sqlalchemy.orm import sessionmaker
+from termcolor import colored
 
 
 class Amity:
@@ -13,7 +16,6 @@ class Amity:
         self.amity_living_spaces = {}
         self.office = Office()
         self.living_space = LivingSpace()
-        self.amity_all_people = {}
         self.amity_staff = {}
         self.amity_fellows = {}
         self.staff = Staff()
@@ -82,7 +84,8 @@ class Amity:
                 person_type == "STAFF" or person_type == "FELLOW"):
             if (person_name in self.amity_staff or
                     person_name in self.amity_fellows):
-                print("That name already exists, Please use another name")
+                print("{} already exists, Please use another name".format(
+                                                                person_name))
             elif person_type == 'Staff' or person_type == 'STAFF':
                 if wants_acc:
                     print("A staff member canot be allocated accomodation")
@@ -269,3 +272,55 @@ class Amity:
         else:
             f.write("\nThere are currently no people who need Living Spaces\n")
         f.close()
+
+    def save_state(self, db_name='amity'):
+        """Save amity data into db tables."""
+        engine = create_db(db_name)
+        Base.metadata.bind = engine
+        Session = sessionmaker()
+        session = Session()
+        allocated_rooms = {}
+
+        for name, occupants in self.amity_offices.items():
+            new_office = Rooms(room_name=name, room_type="O",
+                               no_of_occupants=len(occupants))
+            session.add(new_office)
+            session.commit()
+
+        for name, occupants in self.amity_living_spaces.items():
+            new_living_space = Rooms(room_name=name, room_type="L",
+                                     no_of_occupants=len(occupants))
+            session.add(new_living_space)
+            session.commit()
+
+        for name in self.amity_staff.keys():
+            new_staff = People(name=name, category='Staff', wants_acc="N")
+            session.add(new_staff)
+            session.commit()
+
+        for name, details in self.amity_fellows.items():
+            if details[1]:
+                new_staff = People(name=name, category='Fellow', wants_acc="Y")
+            else:
+                new_staff = People(name=name, category='Fellow', wants_acc="N")
+            session.add(new_staff)
+            session.commit()
+
+        for name, occupants in self.amity_offices.items():
+            for occupant in occupants:
+                allocated_rooms[occupant] = [name, None]
+        for name, occupants in self.amity_living_spaces.items():
+            for occupant in occupants:
+                if allocated_rooms[occupant][0]:
+                    allocated_rooms[occupant][1] = name
+                else:
+                    allocated_rooms[occupant] = [None, name]
+        for name, rooms in allocated_rooms.items():
+            new_allocation = Allocations(name=name,
+                                         office_allocated_to=rooms[0],
+                                         living_allocated_to=rooms[1])
+            session.add(new_allocation)
+            session.commit()
+
+        print(colored("Application data successfully saved to the"
+                      " database >> {}".format(db_name), "red"))
