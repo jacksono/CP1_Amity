@@ -67,13 +67,18 @@ class Amity(cmd.Cmd):
 
     @docopt_cmd
     def do_add_person(self, arg):
-        """Usage: add_person <person_name> <person_type> [<wants_accommodation>]"""
+        """Usage: add_person <first_name> <second_name> <person_type> [<wants_accommodation>]"""
         person_type = arg["<person_type>"]
-        person_name = arg["<person_name>"]
+        person_name = arg["<first_name>"] + " " + arg["<second_name>"]
         print("\n" + "*" * 15)
         if arg["<wants_accommodation>"]:
             wants_acc = arg["<wants_accommodation>"]
-            amity.add_person(person_name, person_type, wants_acc)
+            if wants_acc == 'Y' or wants_acc == 'y':
+                amity.add_person(person_name, person_type, True)
+            elif wants_acc == 'N' or wants_acc == 'n':
+                amity.add_person(person_name, person_type)
+            else:
+                print("Please use 'Y / N' or 'y / n' for accomodation option")
         else:
             amity.add_person(person_name, person_type)
         print("*" * 15)
@@ -183,6 +188,28 @@ class Amity(cmd.Cmd):
                 print("There are currently no rooms in Amity\n")
         else:
             print("{} is not a room in Amity\n".format(room_name))
+
+    @docopt_cmd
+    def do_load_people(self, arg):
+        """Usage: load_people <file_name>"""
+        file_name = arg["<file_name>"]
+        f = open(file_name, mode="rt")
+        for line in f:
+            print("\n" + "*" * 15)
+            args = line.split()
+            person_name = args[0] + " " + args[1]
+            if len(args) > 3:
+                if args[3] == 'Y' or args[3] == 'y':
+                    amity.add_person(person_name, args[2], True)
+                elif args[3] == 'N' or args[3] == 'n':
+                    amity.add_person(person_name, args[2])
+                else:
+                    print("Please use 'Y/N' or 'y/n' for accomodation option")
+                print("*" * 15)
+            else:
+                amity.add_person(person_name, args[2])
+                print("*" * 15)
+        f.close()
 
 
 opt = docopt(__doc__, sys.argv[1:])

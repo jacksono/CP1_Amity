@@ -78,16 +78,20 @@ class Amity:
 
     def add_person(self, person_name, person_type, wants_acc=False):
         """Create people given name, type and accomodation option."""
-        if person_type == "Staff" or person_type == "Fellow":
+        if (person_type == "Staff" or person_type == "Fellow" or
+                person_type == "STAFF" or person_type == "FELLOW"):
             if (person_name in self.amity_staff or
                     person_name in self.amity_fellows):
                 print("That name already exists, Please use another name")
-            elif person_type == 'Staff':
-                self.staff.add_person(person_name)
-                self.amity_staff.update(self.staff.all_people)
-                print("{} has been created as a Staff".format(person_name))
-                print(self.allocate(person_name, "O"))
-            elif person_type == 'Fellow':
+            elif person_type == 'Staff' or person_type == 'STAFF':
+                if wants_acc:
+                    print("A staff member canot be allocated accomodation")
+                else:
+                    self.staff.add_person(person_name)
+                    self.amity_staff.update(self.staff.all_people)
+                    print("{} has been created as a Staff".format(person_name))
+                    print(self.allocate(person_name, "O"))
+            elif person_type == 'Fellow' or person_type == 'FELLOW':
                 self.fellow.add_person(person_name, wants_acc)
                 self.amity_fellows.update(self.fellow.all_people)
                 print("{} has been created as a Fellow".format(person_name))
@@ -97,7 +101,8 @@ class Amity:
                     print(self.allocate(person_name, "O"))
                     print(self.allocate(person_name, "L"))
         else:
-            print("Please use 'Staff' or 'Fellow' for person type.")
+            print("Please use 'Staff'or 'STAFF' and 'Fellow' or 'FELLOW'"
+                  "for person type.")
 
     def reallocate(self, person_name, new_room):
         """Reallocate people from old room to a new one."""
