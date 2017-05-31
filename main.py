@@ -154,9 +154,9 @@ class Amity(cmd.Cmd):
 
     @docopt_cmd
     def do_reallocate(self, arg):
-        """Usage: reallocate <person_name> <new_room>"""
+        """Usage: reallocate <first_name> <second_name> <new_room>"""
         new_room = arg["<new_room>"]
-        person_name = arg["<person_name>"]
+        person_name = arg["<first_name>"] + " " + arg["<second_name>"]
         if person_name in (list(amity.amity_fellows.keys()) +
                            list(amity.amity_staff.keys())):
             print("\n" + "*" * 15)
@@ -216,6 +216,15 @@ class Amity(cmd.Cmd):
         print("\n" + "*" * 15)
         amity.save_state()
 
+        print("*" * 15)
+
+    @docopt_cmd
+    def do_load_state(self, arg):
+        """Usage: load_state <db_name>"""
+        db_name = arg["<db_name>"]
+        print("\n" + "*" * 15)
+        amity.load_state(db_name)
+        print("State Loaded")
         print("*" * 15)
 
 opt = docopt(__doc__, sys.argv[1:])

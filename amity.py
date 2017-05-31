@@ -4,7 +4,9 @@ from person import Fellow, Staff
 import random
 from db.db import Rooms, People, create_db, Allocations, Base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
 from termcolor import colored
+import os
 
 
 class Amity:
@@ -273,7 +275,7 @@ class Amity:
             f.write("\nThere are currently no people who need Living Spaces\n")
         f.close()
 
-    def save_state(self, db_name='amity'):
+    def save_state(self, db_name='amity.db'):
         """Save amity data into db tables."""
         engine = create_db(db_name)
         Base.metadata.bind = engine
@@ -324,3 +326,38 @@ class Amity:
 
         print(colored("Application data successfully saved to the"
                       " database >> {}".format(db_name), "red"))
+
+    def load_state(self, db_name):
+        """Load data from a db to the app."""
+        if not os.path.isfile(db_name):
+            print("Database does not exist")
+        else:
+            engine = create_engine('sqlite:///' + db_name)
+            Base.metadata.bind = engine
+            Session = sessionmaker(bind=engine)
+            session = Session()
+
+            staff = session.query(People).filter_by(category="Staff").all()
+            for person in staff:
+                self.amity_staff[person.name] = [person.category,
+                                                 person.wants_acc]
+
+            fellows = session.query(People).filter_by(category="Fellow").all()
+            for person in fellows:
+                self.amity_fellows[person.name] = [person.category,
+                                                   person.wants_acc]
+            offices = session.query(Rooms).filter_by(room_type="O").all()
+            for office in offices:
+                self.amity_offices[office.room_name] = []
+
+            l_spaces = session.query(Rooms).filter_by(room_type="L").all()
+            for l_space in l_spaces:
+                self.amity_living_spaces[l_space.room_name] = []
+
+            occupants = session.query(Allocations).all()
+            for occupant in occupants:
+                if occupant.office_allocated_to:
+                    self.amity_offices[occupant.office_allocated_to].append(
+                                                                occupant.name)
+                if occupant.living_allocated_to:
+                    (self.amity_living_spaces[occupant.living_allocated_to].append(occupant.name))
