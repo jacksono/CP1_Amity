@@ -124,8 +124,10 @@ class Amity:
             self.amity_offices[new_room].append(person_name)
             if old_room != "old":
                 self.amity_offices[old_room].remove(person_name)
-            print("{0} has been reallocated to {1}".format(person_name,
-                                                           new_room))
+                print("{0} has been reallocated to {1}".format(person_name,
+                                                               new_room))
+            else:
+                print("Invalid Reallocation attempt")
         elif new_room in self.amity_living_spaces:
             wants_acc = []
             for person, option in self.amity_fellows.items():
@@ -143,8 +145,10 @@ class Amity:
                 self.amity_living_spaces[new_room].append(person_name)
                 if old_room != "old":
                     self.amity_living_spaces[old_room].remove(person_name)
-                print("{0} has been reallocated to {1}".format(person_name,
-                                                               new_room))
+                    print("{0} has been reallocated to {1}".format(person_name,
+                                                                   new_room))
+                else:
+                    print("Invalid Reallocation attempt")
             else:
                 print("{} does not qualify for a living space".format(
                                                                 person_name))
@@ -360,4 +364,5 @@ class Amity:
                     self.amity_offices[occupant.office_allocated_to].append(
                                                                 occupant.name)
                 if occupant.living_allocated_to:
-                    (self.amity_living_spaces[occupant.living_allocated_to].append(occupant.name))
+                    (self.amity_living_spaces[occupant.living_allocated_to].
+                     append(occupant.name))

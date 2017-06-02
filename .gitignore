@@ -3,6 +3,8 @@ amity.pyc
 person.pyc
 room.pyc
 test_amity.pyc
+db/__init__.pyc
+db/db.pyc
 
 #ignore pycache folder
 __pycache__
