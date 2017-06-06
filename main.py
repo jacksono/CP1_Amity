@@ -215,9 +215,15 @@ class Amity(cmd.Cmd):
     @docopt_cmd
     def do_save_state(self, arg):
         """Usage: save_state [<db_name>]"""
+        db_name = arg["<db_name>"]
         print(colored("\n" + "*" * 15, "cyan"))
-        amity.save_state()
-
+        try:
+            if db_name:
+                amity.save_state(db_name)
+            else:
+                amity.save_state()
+        except:
+            print(colored("Database error!!", "red"))
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
