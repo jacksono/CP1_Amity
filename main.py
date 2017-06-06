@@ -235,6 +235,15 @@ class Amity(cmd.Cmd):
         print("State Loaded")
         print(colored("*" * 15 + "\n", "cyan"))
 
+    @docopt_cmd
+    def do_remove_occupant(self, arg):
+        """Usage: remove_occupant <first_name> <second_name> <room_name>"""
+        person_name = arg["<first_name>"] + " " + arg["<second_name>"]
+        room_name = arg["<room_name>"]
+        print(colored("\n" + "*" * 15, "cyan"))
+        print(colored(amity.remove_occupant(person_name, room_name), "red"))
+        print(colored("*" * 15 + "\n", "cyan"))
+
 
 opt = docopt(__doc__, sys.argv[1:])
 Amity().cmdloop()

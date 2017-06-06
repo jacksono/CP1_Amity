@@ -231,12 +231,30 @@ class Amity:
 
     def remove_occupant(self, person_name, room_name):
         """Remove a person from a specified room."""
-        if room_name in self.amity_offices:
-            self.amity_offices[room_name].remove(person_name)
-        elif room_name in self.amity_living_spaces:
-            self.amity_living_spaces[room_name].remove(person_name)
+        if person_name in self.amity_staff or\
+           person_name in self.amity_fellows:
+            if room_name in self.amity_offices:
+                if person_name in self.amity_offices[room_name]:
+                    self.amity_offices[room_name].remove(person_name)
+                    print(colored("{0} removed from {1}".format(
+                        person_name, room_name), "blue"))
+                    return "Done!"
+                else:
+                    return "{0} is not an occupant in {1}".format(
+                        person_name, room_name)
+            elif room_name in self.amity_living_spaces:
+                if person_name in self.amity_living_spaces[room_name]:
+                    self.amity_living_spaces[room_name].remove(person_name)
+                    print(colored("{0} removed from {1}".format(
+                        person_name, room_name), "blue"))
+                    return "Done!"
+                else:
+                    return "{0} is not an occupant in {1}".format(
+                        person_name, room_name)
+            else:
+                return "{} doesnot exist in Amity".format(room_name)
         else:
-            return "That Room doesnot exist"
+            return "{} doesnot exist in Amity".format(person_name)
 
     def print_unallocated(self):
         """Retrieve a list of unallocated people."""
