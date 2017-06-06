@@ -30,20 +30,21 @@ class Amity:
         for room_name in room_names:
             if room_name in self.amity_offices or\
                     room_name in self.amity_living_spaces:
-                print("A room named {} already exists,"
-                      " please choose another name".format(room_name))
+                print(colored("A room named {} already exists,"
+                      " please choose another name".format(room_name), 'red'))
             elif type == 'O' or type == "o":
                 self.office.create_room(room_name)
                 self.amity_offices.update(self.office.all_rooms)
-                print("{} has been created as an Office".format(room_name))
+                print(colored("{} has been created as an Office".format(
+                    room_name), "blue"))
             elif type == 'l' or type == "L":
                 self.living_space.create_room(room_name)
                 self.amity_living_spaces.update(self.living_space.all_rooms)
-                print("{} has been created as a Living Space".format(
-                                                                room_name))
+                print(colored("{} has been created as a Living Space".format(
+                                                        room_name), "blue"))
             else:
-                print("Please use 'o' or 'O' for Office type and 'l' or 'L' "
-                      " for Living Space type")
+                print(colored("Please use 'o' or 'O' for Office type and 'l'"
+                      " or 'L' for Living Space type", "red"))
 
     def allocate(self, person_name, room_type):
         """Allocate a person to a room."""
@@ -82,78 +83,109 @@ class Amity:
 
     def add_person(self, person_name, person_type, wants_acc=False):
         """Create people given name, type and accomodation option."""
-        if (person_type == "Staff" or person_type == "Fellow" or
-                person_type == "STAFF" or person_type == "FELLOW"):
+        if (person_type.lower() == "staff" or person_type.lower() == "fellow"):
             if (person_name in self.amity_staff or
                     person_name in self.amity_fellows):
-                print("{} already exists, Please use another name".format(
-                                                                person_name))
-            elif person_type == 'Staff' or person_type == 'STAFF':
+                print(colored("{} already exists, Please use another"
+                              " name".format(person_name), "red"))
+            elif person_type.lower() == 'staff':
                 if wants_acc:
-                    print("A staff member canot be allocated accomodation")
+                    print(colored("A staff member cannot be allocated "
+                                  " accomodation", "red"))
                 else:
                     self.staff.add_person(person_name)
                     self.amity_staff.update(self.staff.all_people)
-                    print("{} has been created as a Staff".format(person_name))
-                    print(self.allocate(person_name, "O"))
-            elif person_type == 'Fellow' or person_type == 'FELLOW':
+                    print(colored("{} has been created as a Staff".format(
+                                                        person_name), "blue"))
+                    print(colored(self.allocate(person_name, "O"), "blue"))
+            elif person_type.lower() == 'fellow':
                 self.fellow.add_person(person_name, wants_acc)
                 self.amity_fellows.update(self.fellow.all_people)
-                print("{} has been created as a Fellow".format(person_name))
+                print(colored("{} has been created as a Fellow".format(
+                                                        person_name), "blue"))
                 if not wants_acc:
-                    print(self.allocate(person_name, "O"))
+                    print(colored(self.allocate(person_name, "O"), "blue"))
                 elif wants_acc:
-                    print(self.allocate(person_name, "O"))
-                    print(self.allocate(person_name, "L"))
+                    print(colored(self.allocate(person_name, "O"), "blue"))
+                    print(colored(self.allocate(person_name, "L"), "blue"))
         else:
-            print("Please use 'Staff'or 'STAFF' and 'Fellow' or 'FELLOW'"
-                  "for person type.")
+            print(colored("Please use 'Staff'or 'Fellow' or for person type.",
+                          "red"))
 
     def reallocate(self, person_name, new_room):
         """Reallocate people from old room to a new one."""
-        old_room = "old"
+        old_room = ""
         if new_room in self.amity_offices:
-            for room, people in self.amity_offices.items():
-                if person_name in people:
-                    old_room = room
-                    if old_room == new_room:
-                        print("{0} is already in {1}".format(person_name,
-                                                             new_room))
-                        return "{0} is already in {1}".format(person_name,
-                                                              new_room)
-            self.amity_offices[new_room].append(person_name)
-            if old_room != "old":
-                self.amity_offices[old_room].remove(person_name)
-                print("{0} has been reallocated to {1}".format(person_name,
-                                                               new_room))
+            if len(self.amity_offices[new_room])\
+                    >= self.office.room_capacity:
+                    print(colored("{} is currently fully occupied, cannot"
+                                  " reallocate".format(new_room), "red"))
             else:
-                print("Invalid Reallocation attempt")
-        elif new_room in self.amity_living_spaces:
-            wants_acc = []
-            for person, option in self.amity_fellows.items():
-                if option[1]:
-                    wants_acc.append(person)
-            if person_name in wants_acc:
-                for room, people in self.amity_living_spaces.items():
+                for room, people in self.amity_offices.items():
                     if person_name in people:
                         old_room = room
                         if old_room == new_room:
-                            print("{0} is already in {1}".format(person_name,
-                                                                 new_room))
+                            print(colored("{0} is already in {1}".format(
+                                person_name, new_room), "red"))
                             return "{0} is already in {1}".format(person_name,
                                                                   new_room)
-                self.amity_living_spaces[new_room].append(person_name)
-                if old_room != "old":
-                    self.amity_living_spaces[old_room].remove(person_name)
-                    print("{0} has been reallocated to {1}".format(person_name,
-                                                                   new_room))
-                else:
-                    print("Invalid Reallocation attempt")
+                    elif old_room != "":
+                        self.amity_offices[old_room].remove(person_name)
+                        self.amity_offices[new_room].append(person_name)
+                        print(colored("{0} has been reallocated to {1}".format(
+                            person_name, new_room), "blue"))
+                    elif old_room == "":
+                        self.amity_offices[new_room].append(person_name)
+                        if person_name in self.unallocated_offices:
+                            self.unallocated_offices.remove(person_name)
+                        print(colored("{0} has been allocated to {1}".format(
+                            person_name, new_room), "blue"))
+                    else:
+                        print(colored("Invalid Reallocation attempt", "red"))
+        elif new_room in self.amity_living_spaces:
+            if len(self.amity_living_spaces[new_room])\
+                    >= self.living_space.room_capacity:
+                    print(colored("{} is currently fully occupied, cannot"
+                                  " reallocate".format(new_room), "red"))
             else:
-                print("{} does not qualify for a living space".format(
-                                                                person_name))
+                wants_acc = []
+                for person, option in self.amity_fellows.items():
+                    if option[1]:
+                        wants_acc.append(person)
+                if person_name in wants_acc:
+                    for room, people in self.amity_living_spaces.items():
+                        if person_name in people:
+                            old_room = room
+                            if old_room == new_room:
+                                print(colored("{0} is already in {1}".format(
+                                    person_name, new_room), "red"))
+                                return "{0} is already in {1}".format(
+                                    person_name, new_room)
+                        elif old_room != "":
+                            self.amity_living_spaces[new_room].append(
+                                person_name)
+                            self.amity_living_spaces[old_room].remove(
+                                person_name)
+                            print(colored("{0} has been reallocated"
+                                          " to {1}".format(
+                                           person_name, new_room), "blue"))
+                        elif old_room == "":
+                            self.amity_living_spaces[new_room].append(
+                                person_name)
+                            if person_name in self.unallocated_living_spaces:
+                                self.unallocated_living_spaces.remove(
+                                    person_name)
+                            print(colored("{0} has been allocated"
+                                          " to {1}".format(
+                                            person_name, new_room), "blue"))
+                        else:
+                            print(colored("Invalid Reallocation attempt",
+                                          "red"))
+                else:
+                    print(colored("{} does not qualify for a living"
+                                  " space".format(person_name), "red"))
         else:
-            print("{} is not a room in Amity".format(new_room))
+            print(colored("{} is not a room in Amity".format(new_room), "red"))
 
     def delete_room(self, room_name):
         """Delete room specified."""
@@ -212,10 +244,12 @@ class Amity:
         living_space_allocated = []
         for occupants in self.amity_offices.values():
             for occupant in occupants:
-                office_allocated.append(occupant)
+                if occupant not in office_allocated:
+                    office_allocated.append(occupant)
         for occupants in self.amity_living_spaces.values():
             for occupant in occupants:
-                living_space_allocated.append(occupant)
+                if occupant not in living_space_allocated:
+                    living_space_allocated.append(occupant)
         staff_with_no_offices = staff_set.difference(office_allocated)
         fellows_with_no_offices = fellow_set.difference(office_allocated)
         for fellow, option in self.amity_fellows.items():
@@ -329,7 +363,7 @@ class Amity:
             session.commit()
 
         print(colored("Application data successfully saved to the"
-                      " database >> {}".format(db_name), "red"))
+                      " database >> {}".format(db_name), "blue"))
 
     def load_state(self, db_name):
         """Load data from a db to the app."""
