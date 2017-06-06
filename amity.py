@@ -129,19 +129,21 @@ class Amity:
                                 person_name, new_room), "red"))
                             return "{0} is already in {1}".format(person_name,
                                                                   new_room)
-                    elif old_room != "":
-                        self.amity_offices[old_room].remove(person_name)
-                        self.amity_offices[new_room].append(person_name)
-                        print(colored("{0} has been reallocated to {1}".format(
-                            person_name, new_room), "blue"))
-                    elif old_room == "":
-                        self.amity_offices[new_room].append(person_name)
-                        if person_name in self.unallocated_offices:
-                            self.unallocated_offices.remove(person_name)
-                        print(colored("{0} has been allocated to {1}".format(
-                            person_name, new_room), "blue"))
-                    else:
-                        print(colored("Invalid Reallocation attempt", "red"))
+                        elif old_room != "":
+                            self.amity_offices[old_room].remove(person_name)
+                            self.amity_offices[new_room].append(person_name)
+                            print(colored("{0} has been reallocated"
+                                  " to {1}".format(person_name, new_room),
+                                          "blue"))
+                            break
+                        elif old_room == "":
+                            self.amity_offices[new_room].append(person_name)
+                            if person_name in self.unallocated_offices:
+                                self.unallocated_offices.remove(person_name)
+                            print(colored("{0} has been allocated"
+                                          " to {1}".format(
+                                           person_name, new_room), "blue"))
+                            break
         elif new_room in self.amity_living_spaces:
             if len(self.amity_living_spaces[new_room])\
                     >= self.living_space.room_capacity:
@@ -161,26 +163,27 @@ class Amity:
                                     person_name, new_room), "red"))
                                 return "{0} is already in {1}".format(
                                     person_name, new_room)
-                        elif old_room != "":
-                            self.amity_living_spaces[new_room].append(
-                                person_name)
-                            self.amity_living_spaces[old_room].remove(
-                                person_name)
-                            print(colored("{0} has been reallocated"
-                                          " to {1}".format(
-                                           person_name, new_room), "blue"))
-                        elif old_room == "":
-                            self.amity_living_spaces[new_room].append(
-                                person_name)
-                            if person_name in self.unallocated_living_spaces:
-                                self.unallocated_living_spaces.remove(
+                            elif old_room != "":
+                                self.amity_living_spaces[new_room].append(
                                     person_name)
-                            print(colored("{0} has been allocated"
-                                          " to {1}".format(
-                                            person_name, new_room), "blue"))
-                        else:
-                            print(colored("Invalid Reallocation attempt",
-                                          "red"))
+                                self.amity_living_spaces[old_room].remove(
+                                    person_name)
+                                print(colored("{0} has been reallocated"
+                                              " to {1}".format(
+                                               person_name, new_room), "blue"))
+                                break
+                            elif old_room == "":
+                                self.amity_living_spaces[new_room].append(
+                                    person_name)
+                                if person_name in\
+                                   self.unallocated_living_spaces:
+                                    self.unallocated_living_spaces.remove(
+                                        person_name)
+                                print(colored("{0} has been allocated"
+                                              " to {1}".format(
+                                               person_name, new_room), "blue"))
+                                break
+
                 else:
                     print(colored("{} does not qualify for a living"
                                   " space".format(person_name), "red"))
