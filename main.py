@@ -5,7 +5,7 @@ Usage:
   main.py add_person <name>  <person_type> [wants_accommodation]
   main.py reallocate_person <name> <room_name>
   main.py
-  main.py (-h | --help | --version)
+  main.py (-h | --help )
 
 Options:
   -i, --interactive Interactive Mode
@@ -133,7 +133,7 @@ class Amity(cmd.Cmd):
             print(colored("There are currently no people who need Offices",
                           "red"))
         if amity.unallocated_living_spaces:
-            print(colored("People who need Living spaces", "magenta"))
+            print(colored("\nPeople who need Living spaces", "magenta"))
             print(colored("-" * 15, "cyan"))
             print(colored(", ".join(amity.unallocated_living_spaces) + "\n",
                           "blue"))
@@ -243,6 +243,13 @@ class Amity(cmd.Cmd):
         print(colored("\n" + "*" * 15, "cyan"))
         print(colored(amity.remove_occupant(person_name, room_name), "red"))
         print(colored("*" * 15 + "\n", "cyan"))
+
+    def do_quit(self, arg):
+        """Exits the Interactive Mode."""
+        print(colored("\n" + "*" * 15, "cyan"))
+        print(colored("\nGoodBye!\n", "yellow"))
+        print(colored("*" * 15 + "\n", "cyan"))
+        exit()
 
 
 opt = docopt(__doc__, sys.argv[1:])

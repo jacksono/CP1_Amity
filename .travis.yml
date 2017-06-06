@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.4"
+cache: pip
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
+script:
+  - python test_amity.py
+  - coverage run  amity.py test
+after_success:
+  coveralls
+

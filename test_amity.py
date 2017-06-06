@@ -120,9 +120,9 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_staff_member_reallocated_correctly(self):
         """Tests staff reallocated to correct room from old room."""
-        self.amity.create_room(["Room2"], "o")
-        self.amity.reallocate("Bob", "Room2")
-        self.assertIn("Bob", self.amity.amity_offices["Room2"],
+        self.amity.create_room(["Room"], "o")
+        self.amity.reallocate("Bob", "Room")
+        self.assertIn("Bob", self.amity.amity_offices["Room"],
                       msg="Staff should move to new room after reallocation")
         self.assertNotIn("Bob", self.amity.amity_offices["Tsavo"],
                          msg="Staff should move from old room after"
@@ -130,9 +130,9 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_fellow_reallocated_to_office_correctly(self):
         """Tests if a fellow is reallocated to correct office from old one."""
-        self.amity.create_room(["Room2"], "o")
-        self.amity.reallocate("Ritah", "Room2")
-        self.assertIn("Ritah", self.amity.amity_offices["Room2"],
+        self.amity.create_room(["Room"], "o")
+        self.amity.reallocate("Ritah", "Room")
+        self.assertIn("Ritah", self.amity.amity_offices["Room"],
                       msg="Fellow should move to new room after reallocation")
         self.assertNotIn("Ritah", self.amity.amity_offices["Tsavo"],
                          msg="Fellow should move from old room after"
@@ -141,9 +141,9 @@ class TestAmityFunctions(unittest.TestCase):
     def test_fellow_reallocated_to_living_space_correctly(self):
         """Tests if a fellow is reallocated to the correct living space."""
         self.amity.add_person("Brenda", "Fellow", True)
-        self.amity.create_room(["Room2"], "l")
-        self.amity.reallocate("Brenda", "Room2")
-        self.assertIn("Brenda", self.amity.amity_living_spaces["Room2"],
+        self.amity.create_room(["Room"], "l")
+        self.amity.reallocate("Brenda", "Room")
+        self.assertIn("Brenda", self.amity.amity_living_spaces["Room"],
                       msg="Fellow should move to new living space after"
                       " reallocation")
         self.assertNotIn("Brenda", self.amity.amity_living_spaces["Go"],
