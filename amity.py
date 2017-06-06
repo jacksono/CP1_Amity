@@ -28,23 +28,29 @@ class Amity:
     def create_room(self, room_names, type, occupant=''):
         """Create rooms given room names and room type."""
         for room_name in room_names:
-            if room_name in self.amity_offices or\
-                    room_name in self.amity_living_spaces:
-                print(colored("A room named {} already exists,"
-                      " please choose another name".format(room_name), 'red'))
-            elif type == 'O' or type == "o":
-                self.office.create_room(room_name)
-                self.amity_offices.update(self.office.all_rooms)
-                print(colored("{} has been created as an Office".format(
-                    room_name), "blue"))
-            elif type == 'l' or type == "L":
-                self.living_space.create_room(room_name)
-                self.amity_living_spaces.update(self.living_space.all_rooms)
-                print(colored("{} has been created as a Living Space".format(
-                                                        room_name), "blue"))
+            if room_name.isalpha():
+                if room_name in self.amity_offices or\
+                        room_name in self.amity_living_spaces:
+                    print(colored("A room named {} already exists,"
+                          " please choose another name".format(room_name),
+                                  'red'))
+                elif type == 'O' or type == "o":
+                    self.office.create_room(room_name)
+                    self.amity_offices.update(self.office.all_rooms)
+                    print(colored("{} has been created as an Office".format(
+                        room_name), "blue"))
+                elif type == 'l' or type == "L":
+                    self.living_space.create_room(room_name)
+                    self.amity_living_spaces.update(
+                        self.living_space.all_rooms)
+                    print(colored("{} has been created as a"
+                                  " Living Space".format(room_name), "blue"))
+                else:
+                    print(colored("Please use 'o' or 'O' for Office type and"
+                          " 'l' or 'L' for Living Space type", "red"))
             else:
-                print(colored("Please use 'o' or 'O' for Office type and 'l'"
-                      " or 'L' for Living Space type", "red"))
+                print(colored("{} not allowed. Please use only letters"
+                              " for room names".format(room_name), "red"))
 
     def allocate(self, person_name, room_type):
         """Allocate a person to a room."""
@@ -83,6 +89,11 @@ class Amity:
 
     def add_person(self, person_name, person_type, wants_acc=False):
         """Create people given name, type and accomodation option."""
+        if not "".join(person_name.split()).isalpha():
+            print(colored("{} is not allowed, Please use only letters"
+                          " for names".format(person_name), "red"))
+            return ""
+
         if (person_type.lower() == "staff" or person_type.lower() == "fellow"):
             if (person_name in self.amity_staff or
                     person_name in self.amity_fellows):
