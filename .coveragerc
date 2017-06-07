@@ -6,3 +6,4 @@ omit =
     */sqlite/*
     */sqlite3/*
     *termcolor.py*
+    */site-packages/*
