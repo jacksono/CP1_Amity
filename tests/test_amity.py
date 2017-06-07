@@ -5,7 +5,6 @@ import os
 sys.path.append(os.path.abspath("/Users/jxn/CP1/CP1_Amity"))
 from amity import Amity  # noqa
 
-
 class TestAmityFunctions(unittest.TestCase):
     """Definition of test cases for Amity functions."""
 
