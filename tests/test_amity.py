@@ -264,7 +264,7 @@ class TestAmityFunctions(unittest.TestCase):
         """Tests that the unallocated list can be saved to a txt file."""
         self.amity.delete_room("Tsavo")
         self.amity.print_unallocated()
-        self.amity.load_unallocated_to_file(self.file_name)
+        self.amity.save_unallocated_to_file(self.file_name)
         with open(self.file_name, "r") as f:
             lines = []
             for line in f:
@@ -273,7 +273,7 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_can_load_allocations_list_to_a_file(self):
         """Tests that the allocationslist can be saved to a txt file."""
-        self.amity.load_allocations_to_file(self.file_name)
+        self.amity.save_allocations_to_file(self.file_name)
         with open(self.file_name, "r") as f:
             lines = []
             for line in f:

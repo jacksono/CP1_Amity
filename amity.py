@@ -318,7 +318,7 @@ class Amity:
                 self.unallocated_living_spaces.append(person)
         return self.unallocated_offices + self.unallocated_living_spaces
 
-    def load_allocations_to_file(self, file_name):
+    def save_allocations_to_file(self, file_name):
         """Load the allocations to a text file."""
         f = open(file_name, mode='wt')
         if self.amity_offices:
@@ -347,7 +347,7 @@ class Amity:
             f.write("\nThere are currently no Living Spaces allocated")
         f.close()
 
-    def load_unallocated_to_file(self, file_name):
+    def save_unallocated_to_file(self, file_name):
         """Load list of unallocated people to a text file."""
         f = open(file_name, mode="wt")
         if self.unallocated_offices:

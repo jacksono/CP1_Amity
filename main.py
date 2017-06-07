@@ -114,7 +114,7 @@ class Amity(cmd.Cmd):
             print(colored("There are currently no Living Spaces allocated",
                           "red"))
         if file_name:
-            amity.load_allocations_to_file(file_name)
+            amity.save_allocations_to_file(file_name)
             print(colored("\n\nAllocations have been loaded to the"
                   " text file: {}".format(file_name), "blue"))
         print(colored("*" * 15 + "\n", "cyan"))
@@ -141,7 +141,7 @@ class Amity(cmd.Cmd):
             print(colored("There are currently no people who need"
                           " Living Spaces", "red"))
         if file_name:
-            amity.load_unallocated_to_file(file_name)
+            amity.save_unallocated_to_file(file_name)
             print(colored("\n\nUnallocated list has been loaded to: {}".format(
                                                         file_name), "blue"))
         print(colored("*" * 15 + "\n", "cyan"))
