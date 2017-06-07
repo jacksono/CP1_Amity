@@ -22,7 +22,6 @@ class TestAmityFunctions(unittest.TestCase):
         """Fixture to delete files and dbs created by test methods."""
         try:
             os.remove(self.file_name)
-
         except:
             pass
 
@@ -292,7 +291,8 @@ class TestAmityFunctions(unittest.TestCase):
         self.amity.save_state(self.db_name)
         self.assertTrue(os.path.isfile("amity.db"))
 
-    def test_state_can_be_loade_from_a_db(self):
+    def test_state_can_be_loaded_from_a_db(self):
+        """Tests that the state can be loaded from a db."""
         self.amity.save_state(self.db_name)
         self.amity.delete_room("Tsavo")
         self.amity.delete_room("Go")
@@ -300,9 +300,9 @@ class TestAmityFunctions(unittest.TestCase):
         self.amity.delete_person("Ritah")
         self.amity.load_state(self.db_name)
         self.assertTrue(bool(self.amity.amity_offices) and
-                         bool(self.amity.amity_living_spaces) and
-                         bool(self.amity.amity_staff) and
-                         bool(self.amity.amity_fellows))
+                        bool(self.amity.amity_living_spaces) and
+                        bool(self.amity.amity_staff) and
+                        bool(self.amity.amity_fellows))
 
 
 if __name__ == '__main__':
