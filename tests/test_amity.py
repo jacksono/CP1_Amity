@@ -258,7 +258,7 @@ class TestAmityFunctions(unittest.TestCase):
     def test_can_get_unallocated_people(self):
         """Tests that a list of unallocated people can be retrieved."""
         self.amity.delete_room("Tsavo")
-        self.assertEqual(["Bob", "Ritah"], self.amity.print_unallocated())
+        self.assertIn("Bob", self.amity.print_unallocated())
 
     def test_can_load_unallocated_list_to_a_file(self):
         """Tests that the unallocated list can be saved to a txt file."""
