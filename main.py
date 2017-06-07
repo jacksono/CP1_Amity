@@ -294,5 +294,14 @@ class Amity(cmd.Cmd):
 
         print(colored("*" * 15 + "\n", "cyan"))
 
+    @docopt_cmd
+    def do_delete_person(self, arg):
+        """Usage: delete_person <first_name> <second_name>"""
+        person_name = arg["<first_name>"] + " " + arg["<second_name>"]
+        print(colored("\n" + "*" * 15, "cyan"))
+        print(amity.delete_person(person_name))
+        print(colored("*" * 15 + "\n", "cyan"))
+
+
 opt = docopt(__doc__, sys.argv[1:])
 Amity().cmdloop()

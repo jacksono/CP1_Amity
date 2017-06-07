@@ -213,10 +213,13 @@ class Amity:
         """Delete person specified."""
         if person_name in self.amity_staff:
             del(self.amity_staff[person_name])
+            return(colored("{} deleted from Amity".format(person_name), "blue"))
         elif person_name in self.amity_fellows:
             del(self.amity_fellows[person_name])
+            return(colored("{} deleted from Amity".format(person_name), "blue"))
         else:
-            return "That person does not exist"
+            return colored("{} does not exist in Amity".format(person_name),
+                           "red")
 
     def convert_room(self, room_name, new_type):
         """Convert a room to the new type specified."""
