@@ -10,7 +10,7 @@ class TestAmityFunctions(unittest.TestCase):
     """Definition of test cases for Amity functions."""
 
     def setUp(self):
-        """Fixture to setup an object of the Amity class for the test cases."""
+        """Fixture to setup class variables to be used for the test cases."""
         self.amity = Amity()
         self.amity.create_room(["Tsavo"], "o")
         self.amity.create_room(['Go'], 'l')
