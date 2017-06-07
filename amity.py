@@ -1,6 +1,6 @@
 """Module to contain the amity class and methods  for all amity operations."""
-from room import Office, LivingSpace
-from person import Fellow, Staff
+from classes.room import Office, LivingSpace
+from classes.person import Fellow, Staff
 import random
 from db.db import Rooms, People, create_db, Allocations, Base
 from sqlalchemy.orm import sessionmaker
