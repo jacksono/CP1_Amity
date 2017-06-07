@@ -204,19 +204,24 @@ class Amity:
         """Delete room specified."""
         if room_name in self.amity_offices:
             del(self.amity_offices[room_name])
+            return(colored("{} deleted from Amity".format(room_name), "blue"))
         elif room_name in self.amity_living_spaces:
             del(self.amity_living_spaces[room_name])
+            return(colored("{} deleted from Amity".format(room_name), "blue"))
         else:
-            return "That room does not exist"
+            return colored("{} does not exist in Amity".format(room_name),
+                           "red")
 
     def delete_person(self, person_name):
         """Delete person specified."""
         if person_name in self.amity_staff:
             del(self.amity_staff[person_name])
-            return(colored("{} deleted from Amity".format(person_name), "blue"))
+            return(colored("{} deleted from Amity".format(person_name),
+                           "blue"))
         elif person_name in self.amity_fellows:
             del(self.amity_fellows[person_name])
-            return(colored("{} deleted from Amity".format(person_name), "blue"))
+            return(colored("{} deleted from Amity".format(person_name),
+                           "blue"))
         else:
             return colored("{} does not exist in Amity".format(person_name),
                            "red")
