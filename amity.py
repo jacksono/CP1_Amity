@@ -435,8 +435,12 @@ class Amity:
 
             fellows = session.query(People).filter_by(category="Fellow").all()
             for person in fellows:
+                if person.wants_acc == "Y":
+                    wants_acc = True
+                else:
+                    wants_acc = False
                 self.amity_fellows[person.name] = [person.category,
-                                                   person.wants_acc]
+                                                   wants_acc]
             offices = session.query(Rooms).filter_by(room_type="O").all()
             for office in offices:
                 self.amity_offices[office.room_name] = []

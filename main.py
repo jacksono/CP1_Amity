@@ -18,6 +18,7 @@ import cmd
 from docopt import docopt, DocoptExit
 from amity import Amity
 from termcolor import colored
+import os
 
 # Create an instance of AMity to be used for the commands
 amity = Amity()
@@ -217,13 +218,17 @@ class Amity(cmd.Cmd):
         """Usage: save_state [<db_name>]"""
         db_name = arg["<db_name>"]
         print(colored("\n" + "*" * 15, "cyan"))
-        try:
-            if db_name:
+
+        if db_name:
+            if not os.path.isfile(db_name):
                 amity.save_state(db_name)
             else:
+                print(colored("Please use another db name", "red"))
+        else:
+            if not os.path.isfile("amity.db"):
                 amity.save_state()
-        except:
-            print(colored("Database error!!", "red"))
+            else:
+                print(colored("Please use another db name", "red"))
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
@@ -246,7 +251,7 @@ class Amity(cmd.Cmd):
 
     @docopt_cmd
     def do_quit(self, arg):
-        """Exits the Interactive Mode."""
+        """Usage: quit"""
         print(colored("\n" + "*" * 15, "cyan"))
         print(colored("\nGoodBye!\n", "yellow"))
         print(colored("*" * 15 + "\n", "cyan"))
