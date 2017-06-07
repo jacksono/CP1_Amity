@@ -232,14 +232,23 @@ class Amity:
             if room_name in self.amity_offices:
                 del(self.amity_offices[room_name])
                 self.amity_living_spaces[room_name] = []
+                return colored("converted {} to a Living Space".format(
+                    room_name), "blue")
             else:
-                return "{} is not an office".format(room_name)
+                return colored("{} is not an office".format(
+                    room_name), "red")
         elif new_type == 'o':
             if room_name in self.amity_living_spaces:
                 del(self.amity_living_spaces[room_name])
                 self.amity_offices[room_name] = []
+                return colored("converted {} to a an Office".format(
+                    room_name), "blue")
             else:
-                return "{} is not a living space".format(room_name)
+                return colored("{} is not a Living space".format(
+                    room_name), "red")
+        else:
+            return colored("Invalid room type, use L/l or O/o".format(
+                room_name), "red")
 
     def promote_fellow(self, fellow_name):
         """Promote a fellow to a staff member."""

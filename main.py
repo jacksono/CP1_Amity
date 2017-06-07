@@ -310,6 +310,15 @@ class Amity(cmd.Cmd):
         print(amity.delete_room(room_name))
         print(colored("*" * 15 + "\n", "cyan"))
 
+    @docopt_cmd
+    def do_convert_room(self, arg):
+        """Usage: convert_room <room_name> <new_room_type>"""
+        room_name = arg["<room_name>"]
+        room_type = arg["<new_room_type>"]
+        print(colored("\n" + "*" * 15, "cyan"))
+        print(amity.convert_room(room_name, room_type))
+        print(colored("*" * 15 + "\n", "cyan"))
+
 
 opt = docopt(__doc__, sys.argv[1:])
 Amity().cmdloop()
