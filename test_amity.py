@@ -2,6 +2,7 @@
 
 import unittest
 from amity import Amity
+import os
 
 
 class TestAmityFunctions(unittest.TestCase):
@@ -14,6 +15,21 @@ class TestAmityFunctions(unittest.TestCase):
         self.amity.create_room(['Go'], 'l')
         self.amity.add_person("Bob", "Staff")
         self.amity.add_person("Ritah", "Fellow")
+        self.file_name = "file.txt"
+        self.db_name = "amity.db"
+
+    def tearDown(self):
+        """Fixture to delete files and dbs created by test methods."""
+        try:
+            os.remove(self.file_name)
+
+        except:
+            pass
+
+        try:
+            os.remove(self.db_name)
+        except:
+            pass
 
     def test_room_created_succesfully(self):
         """Tests if one office room is created succesfully."""
@@ -152,7 +168,11 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_cannot_reallocate_a_person_to_a_full_room(self):
         """Tests a person can't be allocated to a room which is full."""
-        pass
+        people = ['Elvis', 'Tina', 'Chris', 'Joy', 'Ben', 'Lisa']
+        for person in people:
+            self.amity.add_person(person, "Staff")
+        self.amity.reallocate("Lisa", "Tsavo")
+        self.assertEqual(6, len(self.amity.amity_offices["Tsavo"]))
 
     def test_relocating_a_person_to_the_same_room_returns_error_message(self):
         """Tests that an error message is shown when a person is realloacted.
@@ -243,9 +263,46 @@ class TestAmityFunctions(unittest.TestCase):
         """Tests that a list of unallocated people can be retrieved."""
         self.amity.delete_room("Tsavo")
         self.amity.add_person("Bruce", "Staff")
-        self.amity.create_room("Valhala", "O")
+        self.amity.create_room(["Valhala"], "O")
         self.amity.add_person("Edna", "Staff")
         self.assertEqual(["Bruce"], self.amity.print_unallocated())
+
+    def test_can_load_unallocated_list_to_a_file(self):
+        """Tests that the unallocated list can be saved to a txt file."""
+        self.amity.delete_room("Tsavo")
+        self.amity.print_unallocated()
+        self.amity.load_unallocated_to_file(self.file_name)
+        with open(self.file_name, "r") as f:
+            lines = []
+            for line in f:
+                lines.append(line.strip())
+        self.assertIn("> Bob", lines)
+
+    def test_can_load_allocations_list_to_a_file(self):
+        """Tests that the allocationslist can be saved to a txt file."""
+        self.amity.load_allocations_to_file(self.file_name)
+        with open(self.file_name, "r") as f:
+            lines = []
+            for line in f:
+                lines.append(line.strip())
+        self.assertIn("Bob, Ritah", lines)
+
+    def test_state_can_be_saved_to_a_db(self):
+        """Tests that a db is created to save the state."""
+        self.amity.save_state(self.db_name)
+        self.assertTrue(os.path.isfile("amity.db"))
+
+    def test_state_can_be_loade_from_a_db(self):
+        self.amity.save_state(self.db_name)
+        self.amity.delete_room("Tsavo")
+        self.amity.delete_room("Go")
+        self.amity.delete_person("Bob")
+        self.amity.delete_person("Ritah")
+        self.amity.load_state(self.db_name)
+        self.assertTrue(bool(self.amity.amity_offices) and
+                         bool(self.amity.amity_living_spaces) and
+                         bool(self.amity.amity_staff) and
+                         bool(self.amity.amity_fellows))
 
 
 if __name__ == '__main__':

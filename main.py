@@ -19,6 +19,7 @@ from docopt import docopt, DocoptExit
 from amity import Amity
 from termcolor import colored
 
+# Create an instance of AMity to be used for the commands
 amity = Amity()
 
 
@@ -37,7 +38,6 @@ def docopt_cmd(func):
 
         except SystemExit:
             # The SystemExit exception prints the usage for --help
-            # We do not need to do the print here.
             return
 
         return func(self, opt)
