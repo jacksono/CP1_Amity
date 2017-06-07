@@ -3,6 +3,7 @@
 
 class Room(object):
     """Parent class to LivingSpace class and Office class.
+
     Contains attribute and methods to be inherited
     """
 

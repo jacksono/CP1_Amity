@@ -244,6 +244,7 @@ class Amity(cmd.Cmd):
         print(colored(amity.remove_occupant(person_name, room_name), "red"))
         print(colored("*" * 15 + "\n", "cyan"))
 
+    @docopt_cmd
     def do_quit(self, arg):
         """Exits the Interactive Mode."""
         print(colored("\n" + "*" * 15, "cyan"))
@@ -251,6 +252,47 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
         exit()
 
+    @docopt_cmd
+    def do_print_people(self, arg):
+        """Usage: print_people"""
+        print(colored("\n" + "*" * 15, "cyan"))
+        if amity.amity_staff:
+            print(colored("List of Staff", "magenta"))
+            print(colored("-" * 20, "cyan"))
+            for staff in amity.amity_staff.keys():
+                print(colored("> " + staff, "blue"))
+        else:
+            print(colored("There are no staff members in Amity", "blue"))
+        if amity.amity_fellows:
+            print(colored("\nList of Fellows", "magenta"))
+            print(colored("-" * 20, "cyan"))
+            for fellow in amity.amity_fellows.keys():
+                print(colored("> " + fellow, "blue"))
+        else:
+            print(colored("There are no fellows in Amity", "blue"))
+
+        print(colored("*" * 15 + "\n", "cyan"))
+
+    @docopt_cmd
+    def do_print_rooms(self, arg):
+        """Usage: print_rooms"""
+        print(colored("\n" + "*" * 15, "cyan"))
+        if amity.amity_offices:
+            print(colored("List of Offices", "magenta"))
+            print(colored("-" * 20, "cyan"))
+            for office in amity.amity_offices.keys():
+                print(colored("> " + office, "blue"))
+        else:
+            print(colored("There are no offices in Amity", "blue"))
+        if amity.amity_living_spaces:
+            print(colored("\nList of Living Spaces", "magenta"))
+            print(colored("-" * 20, "cyan"))
+            for lspace in amity.amity_living_spaces.keys():
+                print(colored("> " + lspace, "blue"))
+        else:
+            print(colored("There are no Living Spaces in Amity", "blue"))
+
+        print(colored("*" * 15 + "\n", "cyan"))
 
 opt = docopt(__doc__, sys.argv[1:])
 Amity().cmdloop()
