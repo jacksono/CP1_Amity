@@ -1,7 +1,8 @@
 """Module to contain test cases for the amity class."""
 import unittest
 import sys
-import os#sys.path.append(os.path.abspath("/Users/jxn/CP1/CP1_Amity"))
+import os
+sys.path.append(os.path.abspath("/Users/jxn/CP1/CP1_Amity"))
 from amity import Amity  # noqa
 
 
