@@ -319,6 +319,14 @@ class Amity(cmd.Cmd):
         print(amity.convert_room(room_name, room_type))
         print(colored("*" * 15 + "\n", "cyan"))
 
+    @docopt_cmd
+    def do_promote_fellow(self, arg):
+        """Usage: promote_fellow <first_name> <second_name>"""
+        fellow_name = arg["<first_name>"] + " " + arg["<second_name>"]
+        print(colored("\n" + "*" * 15, "cyan"))
+        print(amity.promote_fellow(fellow_name))
+        print(colored("*" * 15 + "\n", "cyan"))
+
 
 opt = docopt(__doc__, sys.argv[1:])
 Amity().cmdloop()

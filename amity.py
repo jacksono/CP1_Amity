@@ -255,6 +255,11 @@ class Amity:
         if fellow_name in self.amity_fellows:
             del(self.amity_fellows[fellow_name])
             self.add_person(fellow_name, "Staff")
+            return colored("\nPromoted {} to a Staff".format(
+                fellow_name), "blue")
+        else:
+            return colored("{} is not a fellow".format(
+                fellow_name), "red")
 
     def remove_occupant(self, person_name, room_name):
         """Remove a person from a specified room."""
