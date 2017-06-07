@@ -34,12 +34,12 @@ class Amity:
                     print(colored("A room named {} already exists,"
                           " please choose another name".format(room_name),
                                   'red'))
-                elif type == 'O' or type == "o":
+                elif type.lower() == 'o':
                     self.office.create_room(room_name)
                     self.amity_offices.update(self.office.all_rooms)
                     print(colored("{} has been created as an Office".format(
                         room_name), "blue"))
-                elif type == 'l' or type == "L":
+                elif type.lower() == "l":
                     self.living_space.create_room(room_name)
                     self.amity_living_spaces.update(
                         self.living_space.all_rooms)

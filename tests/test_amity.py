@@ -33,8 +33,6 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_room_created_succesfully(self):
         """Tests if one office room is created succesfully."""
-        #initial_room_no = len(self.amity.amity_offices)
-        #self.amity.create_room(["Ocullus"], "o")
         room_no = len(self.amity.amity_offices)
         self.assertEqual(1, room_no,
                          msg="Number of rooms must increase by 1 if the room"
@@ -52,10 +50,8 @@ class TestAmityFunctions(unittest.TestCase):
 
     def test_person_created_successfully(self):
         """Tests if one person is created succesfully."""
-        initial_person_no = len(self.amity.amity_staff)
-        self.amity.add_person("Daniel", "Staff")
-        final_person_no = len(self.amity.amity_staff)
-        self.assertEqual(1, final_person_no - initial_person_no,
+        person_no = len(self.amity.amity_staff)
+        self.assertEqual(1, person_no,
                          msg="Total number of people should increase by 1 if a"
                          " new person is created successfully")
 
@@ -262,10 +258,7 @@ class TestAmityFunctions(unittest.TestCase):
     def test_can_get_unallocated_people(self):
         """Tests that a list of unallocated people can be retrieved."""
         self.amity.delete_room("Tsavo")
-        self.amity.add_person("Bruce", "Staff")
-        self.amity.create_room(["Valhala"], "O")
-        self.amity.add_person("Edna", "Staff")
-        self.assertEqual(["Bruce"], self.amity.print_unallocated())
+        self.assertEqual(["Bob", "Ritah"], self.amity.print_unallocated())
 
     def test_can_load_unallocated_list_to_a_file(self):
         """Tests that the unallocated list can be saved to a txt file."""
