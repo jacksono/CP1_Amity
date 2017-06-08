@@ -52,11 +52,4 @@ load_state |[db_name]|load_state amity.db
 #4. Usage
 Screencast!
 
-
-## Credits
-
-1.
-
-## License
-
-### The MIT License (MIT)
+![screencast-amity-jackson](https://user-images.githubusercontent.com/4943363/26920387-9465038c-4c41-11e7-802b-5cbe8cee297b.gif)
