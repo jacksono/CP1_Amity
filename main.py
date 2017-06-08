@@ -67,8 +67,8 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_add_person(self, arg):
-        """Usage: add_person <first_name> <second_name> <person_type> [<wants_accommodation>]"""
+    def do_add_person(self, arg): # noqa
+        """Usage: add_person <first_name> <second_name> <person_type> [<wants_accommodation>]"""  # noqa
         person_type = arg["<person_type>"]
         person_name = arg["<first_name>"] + " " + arg["<second_name>"]
         print(colored("\n" + "*" * 15, "cyan"))
@@ -85,7 +85,7 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_print_allocations(self, arg):
+    def do_print_allocations(self, arg): # noqa
         """Usage: print_allocations [<file_name>]"""
         file_name = arg["<file_name>"]
         print(colored("\n" + "*" * 15, "cyan"))
@@ -121,7 +121,7 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_print_unallocated(self, arg):
+    def do_print_unallocated(self, arg): # noqa
         """Usage: print_unallocated [<file_name>]"""
         file_name = arg["<file_name>"]
         amity.print_unallocated()
@@ -148,7 +148,7 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_reallocate(self, arg):
+    def do_reallocate(self, arg):# noqa
         """Usage: reallocate <first_name> <second_name> <new_room>"""
         new_room = arg["<new_room>"]
         person_name = arg["<first_name>"] + " " + arg["<second_name>"]
@@ -163,7 +163,7 @@ class Amity(cmd.Cmd):
             print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_print_room(self, arg):
+    def do_print_room(self, arg): # noqa
         """Usage: print_room <room_name>"""
         room_name = arg["<room_name>"]
         print(colored("\n" + "*" * 15, "cyan"))
@@ -192,7 +192,7 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_load_people(self, arg):
+    def do_load_people(self, arg): # noqa
         """Usage: load_people <file_name>"""
         print(colored("\n" + "*" * 15, "cyan"))
         file_name = arg["<file_name>"]
@@ -220,7 +220,7 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_save_state(self, arg):
+    def do_save_state(self, arg): # noqa
         """Usage: save_state [<db_name>]"""
         db_name = arg["<db_name>"]
         print(colored("\n" + "*" * 15, "cyan"))
@@ -238,7 +238,7 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_load_state(self, arg):
+    def do_load_state(self, arg): # noqa
         """Usage: load_state <db_name>"""
         db_name = arg["<db_name>"]
         print(colored("\n" + "*" * 15, "cyan"))
@@ -247,7 +247,7 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_remove_occupant(self, arg):
+    def do_remove_occupant(self, arg): # noqa
         """Usage: remove_occupant <first_name> <second_name> <room_name>"""
         person_name = arg["<first_name>"] + " " + arg["<second_name>"]
         room_name = arg["<room_name>"]
@@ -256,7 +256,7 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_quit(self, arg):
+    def do_quit(self, arg):# noqa
         """Usage: quit"""
         print(colored("\n" + "*" * 15, "cyan"))
         print(colored("\nGoodBye!\n", "yellow"))
@@ -264,7 +264,7 @@ class Amity(cmd.Cmd):
         exit()
 
     @docopt_cmd
-    def do_print_people(self, arg):
+    def do_print_people(self, arg): # noqa
         """Usage: print_people"""
         print(colored("\n" + "*" * 15, "cyan"))
         if amity.amity_staff:
@@ -285,7 +285,7 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_print_rooms(self, arg):
+    def do_print_rooms(self, arg): # noqa
         """Usage: print_rooms"""
         print(colored("\n" + "*" * 15, "cyan"))
         if amity.amity_offices:
@@ -306,7 +306,7 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_delete_person(self, arg):
+    def do_delete_person(self, arg): # noqa
         """Usage: delete_person <first_name> <second_name>"""
         person_name = arg["<first_name>"] + " " + arg["<second_name>"]
         print(colored("\n" + "*" * 15, "cyan"))
@@ -314,7 +314,7 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_delete_room(self, arg):
+    def do_delete_room(self, arg): # noqa
         """Usage: delete_room <room_name>"""
         room_name = arg["<room_name>"]
         print(colored("\n" + "*" * 15, "cyan"))
@@ -322,7 +322,7 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_convert_room(self, arg):
+    def do_convert_room(self, arg): # noqa
         """Usage: convert_room <room_name> <new_room_type>"""
         room_name = arg["<room_name>"]
         room_type = arg["<new_room_type>"]
@@ -331,7 +331,7 @@ class Amity(cmd.Cmd):
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
-    def do_promote_fellow(self, arg):
+    def do_promote_fellow(self, arg): # noqa
         """Usage: promote_fellow <first_name> <second_name>"""
         fellow_name = arg["<first_name>"] + " " + arg["<second_name>"]
         print(colored("\n" + "*" * 15, "cyan"))
