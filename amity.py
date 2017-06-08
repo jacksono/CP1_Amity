@@ -271,16 +271,16 @@ class Amity:
                     return(colored("{0} removed from {1}".format(
                         person_name, room_name), "blue"))
                 else:
-                    return "{0} is not an occupant in {1}".format(
-                        person_name, room_name)
+                    return colored("{0} is not an occupant in {1}".format(
+                        person_name, room_name), "red")
             elif room_name in self.amity_living_spaces:
                 if person_name in self.amity_living_spaces[room_name]:
                     self.amity_living_spaces[room_name].remove(person_name)
                     return(colored("{0} removed from {1}".format(
                         person_name, room_name), "blue"))
                 else:
-                    return "{0} is not an occupant in {1}".format(
-                        person_name, room_name)
+                    return colored("{0} is not an occupant in {1}".format(
+                        person_name, room_name), "red")
             else:
                 return colored("{} doesnot exist in Amity".format(
                     room_name), "red")
