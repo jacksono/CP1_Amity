@@ -31,11 +31,17 @@ Command | Argument | Example
 --- | --- | ---
 create_room | <room_type> <room_name>... | create_room O Tsavo
 add_person | <first_name> <second_name> <person_type> [wants accomodation] |add_person Jeremy Stan Fellow Y
-reallocate |  <first_name> <second_name> <new_room_name> | reallocate Jermy Stan Tsavo
+reallocate |  <first_name> <second_name> <new_room_name> | reallocate Jeremy Stan Tsavo
 load_people | <filename> | load_people samplefile.txt
 print_allocations| [filename] | print_allocations allocations.txt
 print_unallocated| [filename] | print_unallocated unallocated.txt
 print_room | <room_name> | print_room Tsavo
+print_rooms |  | print_rooms
+print_people | | print_people
+promote_fellow | <fellow_name> | promote_fellow Bob Jones
+delete_room | <room_name> | delete_room Tsavo
+delete_person | <person_name> | delete_person Bob Jones
+convert_room | <room_name> <new_room_type> | convert_room Tsavo L
 save_state | [db_name]| save_state amity.db
 load_state |[db_name]|load_state amity.db
 
