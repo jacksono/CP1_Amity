@@ -1,0 +1,9 @@
+[report]
+omit =
+    */sqlalchemy/*
+    *numbers.py*
+    *decimal.py*
+    */sqlite/*
+    */sqlite3/*
+    *termcolor.py*
+    */site-packages/*
