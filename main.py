@@ -169,19 +169,25 @@ class Amity(cmd.Cmd):
         print(colored("\n" + "*" * 15, "cyan"))
         if (room_name in amity.amity_offices or
                 room_name in amity.amity_living_spaces):
-            if amity.amity_offices or amity.amity_living_spaces:
-                for room, occupants in amity.amity_offices.items():
-                    if room == room_name:
-                        print(colored(room, "blue"))
-                        print(colored("-" * 6 * (len(occupants) + 1), "cyan"))
-                        if occupants:
-                            print(colored(", ".join(occupants) + "\n", "blue"))
-                        else:
-                            print(colored("No occupants yet\n", "red"))
-            else:
-                print(colored("There're currently no rooms in Amity\n", "red"))
+            for room, occupants in amity.amity_offices.items():
+                if room == room_name:
+                    print(colored(room, "blue"))
+                    print(colored("-" * 6 * (len(occupants) + 1), "cyan"))
+                    if occupants:
+                        print(colored(", ".join(occupants) + "\n", "blue"))
+                    else:
+                        print(colored("No occupants yet", "red"))
+            for room, occupants in amity.amity_living_spaces.items():
+                if room == room_name:
+                    print(colored("\n" + room, "blue"))
+                    print(colored("-" * 6 * (len(occupants) + 1), "cyan"))
+                    if occupants:
+                        print(colored(", ".join(occupants) + "\n", "blue"))
+                    else:
+                        print(colored("No occupants yet", "red"))
+
         else:
-            print(colored("{} is not a room in Amity\n".format(room_name),
+            print(colored("{} is not a room in Amity".format(room_name),
                           "red"))
         print(colored("*" * 15 + "\n", "cyan"))
 
@@ -246,7 +252,7 @@ class Amity(cmd.Cmd):
         person_name = arg["<first_name>"] + " " + arg["<second_name>"]
         room_name = arg["<room_name>"]
         print(colored("\n" + "*" * 15, "cyan"))
-        print(colored(amity.remove_occupant(person_name, room_name), "red"))
+        print(amity.remove_occupant(person_name, room_name))
         print(colored("*" * 15 + "\n", "cyan"))
 
     @docopt_cmd
