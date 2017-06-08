@@ -204,9 +204,11 @@ class Amity:
         """Delete room specified."""
         if room_name in self.amity_offices:
             del(self.amity_offices[room_name])
+            del(self.office.all_rooms[room_name])
             return(colored("{} deleted from Amity".format(room_name), "blue"))
         elif room_name in self.amity_living_spaces:
             del(self.amity_living_spaces[room_name])
+            del(self.living_space.all_rooms[room_name])
             return(colored("{} deleted from Amity".format(room_name), "blue"))
         else:
             return colored("{} does not exist in Amity".format(room_name),
@@ -216,10 +218,12 @@ class Amity:
         """Delete person specified."""
         if person_name in self.amity_staff:
             del(self.amity_staff[person_name])
+            del(self.staff.all_people[person_name])
             return(colored("{} deleted from Amity".format(person_name),
                            "blue"))
         elif person_name in self.amity_fellows:
             del(self.amity_fellows[person_name])
+            del(self.fellow.all_people[person_name])
             return(colored("{} deleted from Amity".format(person_name),
                            "blue"))
         else:
@@ -228,7 +232,7 @@ class Amity:
 
     def convert_room(self, room_name, new_type):
         """Convert a room to the new type specified."""
-        if new_type == 'l':
+        if new_type.lower() == 'l':
             if room_name in self.amity_offices:
                 del(self.amity_offices[room_name])
                 self.amity_living_spaces[room_name] = []
@@ -237,7 +241,7 @@ class Amity:
             else:
                 return colored("{} is not an office".format(
                     room_name), "red")
-        elif new_type == 'o':
+        elif new_type.lower() == 'o':
             if room_name in self.amity_living_spaces:
                 del(self.amity_living_spaces[room_name])
                 self.amity_offices[room_name] = []

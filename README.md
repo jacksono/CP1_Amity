@@ -29,7 +29,7 @@ To optimize room allocations in Amity and keep track of the same. The people not
 
 Command | Argument | Example
 --- | --- | ---
-create_room | L or O | create_room O Tsavo
+create_room | <room_type> <room_name>... | create_room O Tsavo
 add_person | <first_name> <second_name> <person_type> [wants accomodation] |add_person Jeremy Stan Fellow Y
 reallocate |  <first_name> <second_name> <new_room_name> | reallocate Jermy Stan Tsavo
 load_people | <filename> | load_people samplefile.txt
